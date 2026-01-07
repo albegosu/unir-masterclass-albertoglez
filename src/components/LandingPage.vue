@@ -1,5 +1,18 @@
 <template>
   <div class="landing-page">
+    <!-- Language Toggle Button -->
+    <Transition name="fade">
+      <button 
+        v-if="activeSection === 'masterclass'"
+        class="language-toggle" 
+        @click="toggleLanguage"
+        :aria-label="currentLanguage === 'en' ? 'Cambiar a español' : 'Switch to English'"
+        title="Toggle language"
+      >
+        <span class="language-code">{{ currentLanguage.toUpperCase() }}</span>
+      </button>
+    </Transition>
+
     <!-- Chronometer -->
     <div class="chronometer" v-if="chronometerRunning || elapsedTime > 0">
       <div class="chronometer-display">
@@ -32,7 +45,7 @@
       <div class="section-content">
         <div class="text-content">
           <h1 class="main-title">UNIR - <span class="light-text">Masterclass</span></h1>
-          <p class="subtitle">How to survive kit</p>
+          <p class="subtitle">{{ t.masterclass.subtitle }}</p>
         </div>
       </div>
       <div class="image-content">
@@ -46,7 +59,7 @@
         v-if="hasNextSection('masterclass')"
         class="scroll-arrow-btn" 
         @click="startChronometer"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -58,8 +71,8 @@
     <section id="who-i-am" class="section who-i-am-section" ref="whoIAmSection">
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">Who I am</h2>
-          <p class="section-subtitle">From Industrial Design to Web development</p>
+          <h2 class="section-title">{{ t.whoIAm.title }}</h2>
+          <p class="section-subtitle">{{ t.whoIAm.subtitle }}</p>
         </div>
         <div class="profile-content">
           <div class="profile-image-wrapper">
@@ -86,7 +99,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">Diseño Industrial</div>
+                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.industrialDesign : 'Diseño Industrial' }}</div>
                   <div class="label-line-2">ESAPA</div>
                 </div>
               </div>
@@ -96,7 +109,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">Máster Full Stack</div>
+                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.masterFullStack : 'Máster Full Stack' }}</div>
                   <div class="label-line-2">UNIR</div>
                 </div>
               </div>
@@ -106,7 +119,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">Bootcamp Full Stack</div>
+                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.bootcampFullStack : 'Bootcamp Full Stack' }}</div>
                   <div class="label-line-2">Factoría F5</div>
                 </div>
               </div>
@@ -116,7 +129,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">Prueba y error</div>
+                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.trialAndError : 'Prueba y error' }}</div>
                   <div class="label-line-2">La vida</div>
                 </div>
               </div>
@@ -124,7 +137,7 @@
           </div>
           <div class="profile-info">
             <h3 class="profile-name">Alberto González</h3>
-            <p class="profile-title">Full Stack Engineer</p>
+            <p class="profile-title">{{ t.whoIAm.profileTitle }}</p>
             <div class="profile-social">
               <a href="https://www.linkedin.com/in/albegosu/" target="_blank" class="social-link">
                 <span class="social-handle">/albegosu</span>
@@ -140,7 +153,7 @@
         v-if="hasNextSection('who-i-am')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -155,8 +168,8 @@
       </div>
       <div class="section-content">
           <div class="where-worked-header">
-            <h2 class="section-title">Where I've worked</h2>
-            <p class="section-subtitle">My professional journey</p>
+            <h2 class="section-title">{{ t.whereWorked.title }}</h2>
+            <p class="section-subtitle">{{ t.whereWorked.subtitle }}</p>
           </div>
         <div class="text-content">
           <div class="timeline-container-full">
@@ -186,7 +199,7 @@
         v-if="hasNextSection('where-worked')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -201,16 +214,16 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">Why I studied UNIR Master</h2>
-          <p class="section-subtitle">The motivation behind my choice</p>
+          <h2 class="section-title">{{ t.whyStudied.title }}</h2>
+          <p class="section-subtitle">{{ t.whyStudied.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Stack</h3>
-              <p class="why-studied-point-text">The comprehensive technology stack covered in the program aligned perfectly with my career goals and the current industry demands.</p>
+              <h3 class="why-studied-point-title">{{ t.whyStudied.stack.title }}</h3>
+              <p class="why-studied-point-text">{{ t.whyStudied.stack.text }}</p>
             </li>
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">LinkedIn Search of UNIR Alumni</h3>
-              <p class="why-studied-point-text">Researching UNIR Master alumni on LinkedIn showed impressive career trajectories and successful transitions into tech roles, which validated the program's effectiveness.</p>
+              <h3 class="why-studied-point-title">{{ t.whyStudied.linkedIn.title }}</h3>
+              <p class="why-studied-point-text">{{ t.whyStudied.linkedIn.text }}</p>
             </li>
           </ul>
         </div>
@@ -219,7 +232,7 @@
         v-if="hasNextSection('why-studied')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -238,8 +251,8 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">When I studied UNIR Master</h2>
-          <p class="section-subtitle">Timeline of my studies</p>
+          <h2 class="section-title">{{ t.whenStudied.title }}</h2>
+          <p class="section-subtitle">{{ t.whenStudied.subtitle }}</p>
           <div class="steps-container">
             <div class="steps-line"></div>
             <div class="steps-wrapper">
@@ -248,7 +261,7 @@
                   <div class="step-number">1</div>
                 </div>
                 <div class="step-content">
-                  <h3 class="step-title">Teachers</h3>
+                  <h3 class="step-title">{{ t.whenStudied.faculty }}</h3>
                 </div>
               </div>
               <div class="step-item">
@@ -256,7 +269,7 @@
                   <div class="step-number">2</div>
                 </div>
                 <div class="step-content">
-                  <h3 class="step-title">Didactic content</h3>
+                  <h3 class="step-title">{{ t.whenStudied.content }}</h3>
                 </div>
               </div>
               <div class="step-item">
@@ -264,7 +277,7 @@
                   <div class="step-number">3</div>
                 </div>
                 <div class="step-content">
-                  <h3 class="step-title">Support</h3>
+                  <h3 class="step-title">{{ t.whenStudied.support }}</h3>
                 </div>
               </div>
             </div>
@@ -275,7 +288,7 @@
         v-if="hasNextSection('when-studied')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -290,32 +303,32 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">Master vs. Bootcamp</h2>
-          <p class="section-subtitle">A comparative perspective</p>
+          <h2 class="section-title">{{ t.masterVsBootcamp.title }}</h2>
+          <p class="section-subtitle">{{ t.masterVsBootcamp.subtitle }}</p>
           <div class="comparison-container">
             <div class="comparison-column">
-              <h3 class="comparison-title">Master</h3>
+              <h3 class="comparison-title">{{ t.masterVsBootcamp.master.title }}</h3>
               <ul class="comparison-list">
                 <li class="comparison-item">
-                  <h4 class="comparison-point-title">Content Structure</h4>
-                  <p class="comparison-point-text">The curriculum is well-organized and follows a clear structure, making it easier to follow a logical learning path.</p>
+                  <h4 class="comparison-point-title">{{ t.masterVsBootcamp.master.contentStructure.title }}</h4>
+                  <p class="comparison-point-text">{{ t.masterVsBootcamp.master.contentStructure.text }}</p>
                 </li>
                 <li class="comparison-item">
-                  <h4 class="comparison-point-title">Formality of Activities</h4>
-                  <p class="comparison-point-text">Assignments and assessments follow a more formal, traditional academic approach.</p>
+                  <h4 class="comparison-point-title">{{ t.masterVsBootcamp.master.formality.title }}</h4>
+                  <p class="comparison-point-text">{{ t.masterVsBootcamp.master.formality.text }}</p>
                 </li>
               </ul>
             </div>
             <div class="comparison-column">
-              <h3 class="comparison-title">Bootcamp</h3>
+              <h3 class="comparison-title">{{ t.masterVsBootcamp.bootcamp.title }}</h3>
               <ul class="comparison-list">
                 <li class="comparison-item">
-                  <h4 class="comparison-point-title">Enhanced Collaborative Work</h4>
-                  <p class="comparison-point-text">There's a stronger emphasis on collaborative work, with more group projects that really push teamwork and peer learning.</p>
+                  <h4 class="comparison-point-title">{{ t.masterVsBootcamp.bootcamp.collaboration.title }}</h4>
+                  <p class="comparison-point-text">{{ t.masterVsBootcamp.bootcamp.collaboration.text }}</p>
                 </li>
                 <li class="comparison-item">
-                  <h4 class="comparison-point-title">Greater GitHub Usage</h4>
-                  <p class="comparison-point-text">You'll use GitHub much more frequently for version control, managing projects, and showcasing your work—great practice with tools you'll actually use on the job.</p>
+                  <h4 class="comparison-point-title">{{ t.masterVsBootcamp.bootcamp.github.title }}</h4>
+                  <p class="comparison-point-text">{{ t.masterVsBootcamp.bootcamp.github.text }}</p>
                 </li>
               </ul>
             </div>
@@ -326,7 +339,7 @@
         v-if="hasNextSection('master-vs-bootcamp')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -341,16 +354,16 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">First new job</h2>
-          <p class="section-subtitle">The beginning of my new career</p>
+          <h2 class="section-title">{{ t.firstJob.title }}</h2>
+          <p class="section-subtitle">{{ t.firstJob.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">100 Doors</h3>
-              <p class="why-studied-point-text">You need to knock on 100 doors to get an opportunity. Persistence and determination are key when starting your career journey.</p>
+              <h3 class="why-studied-point-title">{{ t.firstJob.doors.title }}</h3>
+              <p class="why-studied-point-text">{{ t.firstJob.doors.text }}</p>
             </li>
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Learning Everywhere</h3>
-              <p class="why-studied-point-text">My first job at Minsait wasn't about development, but I think in all places you can learn. Every experience contributes to your growth as a professional.</p>
+              <h3 class="why-studied-point-title">{{ t.firstJob.learning.title }}</h3>
+              <p class="why-studied-point-text">{{ t.firstJob.learning.text }}</p>
             </li>
             <li class="why-studied-item minsait-logo-item">
               <img
@@ -373,7 +386,7 @@
         v-if="hasNextSection('first-job')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -388,24 +401,24 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">Soft Skills</h2>
-          <p class="section-subtitle">Beyond technical expertise</p>
+          <h2 class="section-title">{{ t.softSkills.title }}</h2>
+          <p class="section-subtitle">{{ t.softSkills.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Communication</h3>
-              <p class="why-studied-point-text">Being able to clearly express your ideas, ask questions when you don't understand, and listen actively to others is crucial. Even if you're new to the field, showing that you can communicate effectively demonstrates your potential to learn and collaborate.</p>
+              <h3 class="why-studied-point-title">{{ t.softSkills.communication.title }}</h3>
+              <p class="why-studied-point-text">{{ t.softSkills.communication.text }}</p>
             </li>
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Adaptability</h3>
-              <p class="why-studied-point-text">The tech industry changes rapidly. Employers value candidates who can adapt to new technologies, methodologies, and challenges. Show that you're willing to learn and embrace change, even when you're starting with limited knowledge.</p>
+              <h3 class="why-studied-point-title">{{ t.softSkills.adaptability.title }}</h3>
+              <p class="why-studied-point-text">{{ t.softSkills.adaptability.text }}</p>
             </li>
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Problem-Solving Attitude</h3>
-              <p class="why-studied-point-text">You don't need to know everything, but showing that you approach problems with curiosity and persistence is valuable. Employers appreciate candidates who don't give up easily and are willing to research, ask for help, and try different solutions.</p>
+              <h3 class="why-studied-point-title">{{ t.softSkills.problemSolving.title }}</h3>
+              <p class="why-studied-point-text">{{ t.softSkills.problemSolving.text }}</p>
             </li>
             <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Teamwork</h3>
-              <p class="why-studied-point-text">Most tech jobs involve working with others. Being collaborative, respectful, and supportive of your teammates matters more than having all the technical answers. Show that you can contribute to a team environment, even as you're learning.</p>
+              <h3 class="why-studied-point-title">{{ t.softSkills.teamwork.title }}</h3>
+              <p class="why-studied-point-text">{{ t.softSkills.teamwork.text }}</p>
             </li>
           </ul>
         </div>
@@ -414,7 +427,7 @@
         v-if="hasNextSection('soft-skills')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
-        aria-label="Scroll to next section"
+        :aria-label="t.aria.scrollNext"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 9l6 6 6-6"/>
@@ -426,19 +439,54 @@
     <section id="resizes" class="section resizes-section">
       <div class="section-content">
         <div class="text-content resizes-center-content">
-          <a 
-            href="https://resiz.es" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="resizes-logo-link"
-          >
-            <img 
-              :src="resizesLogo" 
-              alt="Resizes" 
-              class="resizes-logo"
-            />
-          </a>
-          <p class="section-subtitle">My place</p>
+          <div class="resizes-logo-wrapper" :class="{ 'dropdown-active': resizesDropdownOpen }" ref="resizesDropdownWrapper">
+            <button 
+              @click="toggleResizesDropdown"
+              class="resizes-logo-link"
+              type="button"
+              :aria-expanded="resizesDropdownOpen"
+              aria-label="Toggle Resizes menu"
+            >
+              <img 
+                :src="resizesLogo" 
+                alt="Resizes" 
+                class="resizes-logo"
+              />
+            </button>
+            <div 
+              class="resizes-dropdown"
+              v-show="resizesDropdownOpen"
+            >
+              <a 
+                href="https://docs.resiz.es/dash-docs/intro/overview" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="dropdown-item dropdown-item-1"
+              >
+                <span class="dropdown-icon">📚</span>
+                <span class="dropdown-text">Docs</span>
+              </a>
+              <a 
+                href="https://github.com/resizes" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="dropdown-item dropdown-item-2"
+              >
+                <span class="dropdown-icon">🐙</span>
+                <span class="dropdown-text">GitHub</span>
+              </a>
+              <a 
+                href="https://www.linkedin.com/company/resizes" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="dropdown-item dropdown-item-3"
+              >
+                <span class="dropdown-icon">💼</span>
+                <span class="dropdown-text">LinkedIn</span>
+              </a>
+            </div>
+          </div>
+          <p class="section-subtitle">{{ t.resizes.subtitle }}</p>
         </div>
       </div>
       <div class="dash-container">
@@ -481,7 +529,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import characterImage from '../assets/Gon_5_Standing_Outline0003.png'
 import profileImage from '../assets/Alberto González 1.png'
 import resizesLogo from '../assets/Resizes.png'
@@ -493,61 +541,306 @@ import platonicImage from '../assets/Platonic_2_-_Dodeca.png'
 import notificationImage from '../assets/Notification.png'
 import ellipseImage from '../assets/Ellipse.png'
 
-const workExperience = ref([
+// Language state
+const currentLanguage = ref('en')
+
+// Translations
+const translations = {
+  en: {
+    masterclass: {
+      subtitle: 'How to survive Kit'
+    },
+    whoIAm: {
+      title: 'Who I am',
+      subtitle: 'From Industrial Design to Web Development',
+      profileTitle: 'Full Stack Engineer',
+      profileHover: {
+        industrialDesign: 'Industrial Design',
+        masterFullStack: 'Master Full Stack',
+        bootcampFullStack: 'Bootcamp Full Stack',
+        trialAndError: 'Trial and Error'
+      }
+    },
+    whereWorked: {
+      title: 'Where I\'ve worked',
+      subtitle: 'My professional journey'
+    },
+    whyStudied: {
+      title: 'Why I Studied the UNIR Master',
+      subtitle: 'The motivation behind my choice',
+      stack: {
+        title: 'Stack',
+        text: 'The comprehensive technology stack covered in the program aligned perfectly with my career goals and the current industry demands.'
+      },
+      linkedIn: {
+        title: 'LinkedIn Research of UNIR Alumni',
+        text: 'Researching UNIR Master alumni on LinkedIn showed impressive career trajectories and successful transitions into tech roles, which validated the program\'s effectiveness.'
+      }
+    },
+    whenStudied: {
+      title: 'When I Studied the UNIR Master',
+      subtitle: 'Keypoints of my experience',
+      faculty: 'Expert Faculty',
+      content: 'Educational Content',
+      support: 'Support'
+    },
+    masterVsBootcamp: {
+      title: 'Master vs. Bootcamp',
+      subtitle: 'A comparative perspective',
+      master: {
+        title: 'Master',
+        contentStructure: {
+          title: 'Content Structure',
+          text: 'The curriculum is well-organized and follows a clear structure, making it easier to follow a logical learning path.'
+        },
+        formality: {
+          title: 'Formality of Activities',
+          text: 'Assignments and assessments follow a more formal, traditional academic approach.'
+        }
+      },
+      bootcamp: {
+        title: 'Bootcamp',
+        collaboration: {
+          title: 'Enhanced Collaborative Work',
+          text: 'There\'s a stronger emphasis on collaborative work, with more group projects that really push teamwork and peer learning.'
+        },
+        github: {
+          title: 'Greater GitHub Usage',
+          text: 'You\'ll use GitHub much more frequently for version control, managing projects, and showcasing your work—great practice with tools you\'ll actually use on the job.'
+        }
+      }
+    },
+    firstJob: {
+      title: 'My First Job',
+      subtitle: 'The beginning of my new career',
+      doors: {
+        title: '100 Doors',
+        text: 'You need to knock on 100 doors to get an opportunity. Persistence and determination are key when starting your career journey.'
+      },
+      learning: {
+        title: 'Learning Everywhere',
+        text: 'My first job at Minsait wasn\'t about development, but I believe you can learn anywhere. Every experience contributes to your growth as a professional.'
+      }
+    },
+    softSkills: {
+      title: 'Soft Skills',
+      subtitle: 'Beyond technical expertise',
+      communication: {
+        title: 'Communication',
+        text: 'Being able to clearly express your ideas, ask questions when you don\'t understand, and listen actively to others is crucial. Even if you\'re new to the field, showing that you can communicate effectively demonstrates your potential to learn and collaborate.'
+      },
+      adaptability: {
+        title: 'Adaptability',
+        text: 'The tech industry changes rapidly. Employers value candidates who can adapt to new technologies, methodologies, and challenges. Show that you\'re willing to learn and embrace change, even when you\'re starting with limited knowledge.'
+      },
+      problemSolving: {
+        title: 'Problem-Solving Attitude',
+        text: 'You don\'t need to know everything, but showing that you approach problems with curiosity and persistence is valuable. Employers appreciate candidates who don\'t give up easily and are willing to research, ask for help, and try different solutions.'
+      },
+      teamwork: {
+        title: 'Teamwork',
+        text: 'Most tech jobs involve working with others. Being collaborative, respectful, and supportive of your teammates matters more than having all the technical answers. Show that you can contribute to a team environment, even as you\'re learning.'
+      }
+    },
+    resizes: {
+      subtitle: 'My place'
+    },
+    nav: {
+      masterclass: 'Masterclass',
+      whoIAm: 'Who I am',
+      whereWorked: 'Where I\'ve worked',
+      whyStudied: 'Why I studied',
+      whenStudied: 'When I studied',
+      masterVsBootcamp: 'Master vs. Bootcamp',
+      firstJob: 'My First Job',
+      softSkills: 'Soft Skills',
+      resizes: 'Resizes'
+    },
+    aria: {
+      scrollNext: 'Scroll to next section'
+    }
+  },
+  es: {
+    masterclass: {
+      subtitle: 'Kit de supervivencia'
+    },
+    whoIAm: {
+      title: 'Quién soy',
+      subtitle: 'Del Diseño Industrial al Desarrollo Web',
+      profileTitle: 'Ingeniero Full Stack',
+      profileHover: {
+        industrialDesign: 'Diseño Industrial',
+        masterFullStack: 'Máster Full Stack',
+        bootcampFullStack: 'Bootcamp Full Stack',
+        trialAndError: 'Prueba y error'
+      }
+    },
+    whereWorked: {
+      title: 'Dónde he trabajado',
+      subtitle: 'Mi trayectoria profesional'
+    },
+    whyStudied: {
+      title: 'Por qué estudié el Máster de UNIR',
+      subtitle: 'La motivación detrás de mi elección',
+      stack: {
+        title: 'Stack',
+        text: 'El stack tecnológico completo cubierto en el programa se alineó perfectamente con mis objetivos profesionales y las demandas actuales de la industria.'
+      },
+      linkedIn: {
+        title: 'Investigación de Alumni de UNIR en LinkedIn',
+        text: 'Investigar a los alumni del Máster de UNIR en LinkedIn mostró trayectorias profesionales impresionantes y transiciones exitosas a roles tecnológicos, lo que validó la efectividad del programa.'
+      }
+    },
+    whenStudied: {
+      title: 'Cuándo estudié el Máster de UNIR',
+      subtitle: 'Los puntos más importantes para mi',
+      faculty: 'Profesorado experto',
+      content: 'Contenido educativo',
+      support: 'Apoyo'
+    },
+    masterVsBootcamp: {
+      title: 'Máster vs. Bootcamp',
+      subtitle: 'Una perspectiva comparativa',
+      master: {
+        title: 'Máster',
+        contentStructure: {
+          title: 'Estructura del contenido',
+          text: 'El plan de estudios está bien organizado y sigue una estructura clara, lo que facilita seguir un camino de aprendizaje lógico.'
+        },
+        formality: {
+          title: 'Formalidad de las actividades',
+          text: 'Las tareas y evaluaciones siguen un enfoque académico más formal y tradicional.'
+        }
+      },
+      bootcamp: {
+        title: 'Bootcamp',
+        collaboration: {
+          title: 'Trabajo colaborativo mejorado',
+          text: 'Hay un mayor énfasis en el trabajo colaborativo, con más proyectos grupales que realmente impulsan el trabajo en equipo y el aprendizaje entre pares.'
+        },
+        github: {
+          title: 'Mayor uso de GitHub',
+          text: 'Usarás GitHub con mucha más frecuencia para control de versiones, gestión de proyectos y mostrar tu trabajo: una excelente práctica con herramientas que realmente usarás en el trabajo.'
+        }
+      }
+    },
+    firstJob: {
+      title: 'Mi primer trabajo',
+      subtitle: 'El comienzo de mi nueva carrera',
+      doors: {
+        title: '100 Puertas',
+        text: 'Necesitas tocar 100 puertas para obtener una oportunidad. La persistencia y la determinación son clave al comenzar tu trayectoria profesional.'
+      },
+      learning: {
+        title: 'Aprender en todas partes',
+        text: 'Mi primer trabajo en Minsait no era sobre desarrollo, pero creo que puedes aprender en cualquier lugar. Cada experiencia contribuye a tu crecimiento como profesional.'
+      }
+    },
+    softSkills: {
+      title: 'Habilidades blandas',
+      subtitle: 'Más allá de la experiencia técnica',
+      communication: {
+        title: 'Comunicación',
+        text: 'Ser capaz de expresar claramente tus ideas, hacer preguntas cuando no entiendes y escuchar activamente a otros es crucial. Incluso si eres nuevo en el campo, demostrar que puedes comunicarte eficazmente demuestra tu potencial para aprender y colaborar.'
+      },
+      adaptability: {
+        title: 'Adaptabilidad',
+        text: 'La industria tecnológica cambia rápidamente. Los empleadores valoran a los candidatos que pueden adaptarse a nuevas tecnologías, metodologías y desafíos. Demuestra que estás dispuesto a aprender y abrazar el cambio, incluso cuando estás comenzando con conocimientos limitados.'
+      },
+      problemSolving: {
+        title: 'Actitud de resolución de problemas',
+        text: 'No necesitas saber todo, pero demostrar que abordas los problemas con curiosidad y persistencia es valioso. Los empleadores aprecian a los candidatos que no se rinden fácilmente y están dispuestos a investigar, pedir ayuda y probar diferentes soluciones.'
+      },
+      teamwork: {
+        title: 'Trabajo en equipo',
+        text: 'La mayoría de los trabajos tecnológicos implican trabajar con otros. Ser colaborativo, respetuoso y solidario con tus compañeros de equipo importa más que tener todas las respuestas técnicas. Demuestra que puedes contribuir a un ambiente de equipo, incluso mientras estás aprendiendo.'
+      }
+    },
+    resizes: {
+      subtitle: 'Mi lugar'
+    },
+    nav: {
+      masterclass: 'Masterclass',
+      whoIAm: 'Quién soy',
+      whereWorked: 'Dónde he trabajado',
+      whyStudied: 'Por qué estudié',
+      whenStudied: 'Cuándo estudié',
+      masterVsBootcamp: 'Máster vs. Bootcamp',
+      firstJob: 'Mi primer trabajo',
+      softSkills: 'Habilidades blandas',
+      resizes: 'Resizes'
+    },
+    aria: {
+      scrollNext: 'Desplazarse a la siguiente sección'
+    }
+  }
+}
+
+// Computed translation helper
+const t = computed(() => translations[currentLanguage.value])
+
+// Toggle language function
+const toggleLanguage = () => {
+  currentLanguage.value = currentLanguage.value === 'en' ? 'es' : 'en'
+}
+
+// Computed work experience with translations
+const workExperience = computed(() => [
   {
-    position: 'Sales Advisor',
+    position: currentLanguage.value === 'en' ? 'Sales Advisor' : 'Asesor de ventas',
     company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
-    location: 'Madrid, Gijón, Avilés y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Gijón, Avilés and surrounding areas' : 'Madrid, Gijón, Avilés y alrededores',
     year: '2012 - 2017'
   },
   {
-    position: 'Industrial Designer',
+    position: currentLanguage.value === 'en' ? 'Industrial Designer' : 'Diseñador Industrial',
     company: 'enPieza eStudio',
-    location: 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid and surrounding areas' : 'Madrid y alrededores',
     year: '2016 - 2017'
   },
   {
-    position: 'Senior CAD Specialist',
+    position: currentLanguage.value === 'en' ? 'Senior CAD Specialist' : 'Especialista CAD Senior',
     company: 'Align Technology',
-    location: 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid and surrounding areas' : 'Madrid y alrededores',
     year: '2018 - 2022'
   },
   {
-    position: 'Responsable producción',
+    position: currentLanguage.value === 'en' ? 'Production Manager' : 'Responsable de producción',
     company: 'MYL ideas',
-    location: 'Asturias, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Asturias, Principado de Asturias, Spain' : 'Asturias, Principado de Asturias, España',
     year: '2022 - 2023'
   },
   {
-    position: 'Consultant y Analyst',
+    position: currentLanguage.value === 'en' ? 'Consultant and Analyst' : 'Consultor y Analista',
     company: 'Minsait',
-    location: 'Gijón, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Gijón, Principado de Asturias, Spain' : 'Gijón, Principado de Asturias, España',
     year: '2024 - 2025'
   },
   {
-    position: 'Full Stack Engineer',
+    position: currentLanguage.value === 'en' ? 'Full Stack Engineer' : 'Ingeniero Full Stack',
     company: 'Resizes',
-    location: 'Gijón, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Gijón, Principado de Asturias, Spain' : 'Gijón, Principado de Asturias, España',
     year: '2025'
   }
 ])
 
-const sections = ref([
-  { id: 'masterclass', label: 'Masterclass' },
-  { id: 'who-i-am', label: 'Who I am' },
-  { id: 'where-worked', label: 'Where I\'ve worked' },
-  { id: 'why-studied', label: 'Why I studied' },
-  { id: 'when-studied', label: 'When I studied' },
-  { id: 'master-vs-bootcamp', label: 'Master vs. Bootcamp' },
-  { id: 'first-job', label: 'First job' },
-  { id: 'soft-skills', label: 'Soft Skills' },
-  { id: 'resizes', label: 'Resizes' }
+const sections = computed(() => [
+  { id: 'masterclass', label: t.value.nav.masterclass },
+  { id: 'who-i-am', label: t.value.nav.whoIAm },
+  { id: 'where-worked', label: t.value.nav.whereWorked },
+  { id: 'why-studied', label: t.value.nav.whyStudied },
+  { id: 'when-studied', label: t.value.nav.whenStudied },
+  { id: 'master-vs-bootcamp', label: t.value.nav.masterVsBootcamp },
+  { id: 'first-job', label: t.value.nav.firstJob },
+  { id: 'soft-skills', label: t.value.nav.softSkills },
+  { id: 'resizes', label: t.value.nav.resizes }
 ])
 
 const activeSection = ref('masterclass')
 const masterclassSection = ref(null)
 const whoIAmSection = ref(null)
 const sideNav = ref(null)
+const resizesDropdownWrapper = ref(null)
 
 // Chronometer state
 const chronometerRunning = ref(false)
@@ -604,6 +897,19 @@ const hasNextSection = (sectionId) => {
 const resizesNotificationVisible = ref(false)
 let resizesNotificationTimeout = null
 
+// Resizes dropdown state
+const resizesDropdownOpen = ref(false)
+
+const toggleResizesDropdown = () => {
+  resizesDropdownOpen.value = !resizesDropdownOpen.value
+}
+
+const handleClickOutside = (event) => {
+  if (resizesDropdownWrapper.value && !resizesDropdownWrapper.value.contains(event.target)) {
+    resizesDropdownOpen.value = false
+  }
+}
+
 const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight / 2
 
@@ -623,6 +929,7 @@ const handleScroll = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   handleScroll() // Initial check
+  document.addEventListener('click', handleClickOutside)
 })
 
 watch(activeSection, (newSection) => {
@@ -645,6 +952,7 @@ watch(activeSection, (newSection) => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('click', handleClickOutside)
   if (chronometerInterval) {
     clearInterval(chronometerInterval)
   }
@@ -660,6 +968,65 @@ onUnmounted(() => {
   background: whitesmoke;
   position: relative;
   font-family: 'Switzer', sans-serif;
+}
+
+/* Language Toggle Button */
+.language-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #1a1a2e;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Switzer', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Transition for language toggle */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.language-toggle:hover {
+  background: #1a1a2e;
+  color: whitesmoke;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.language-code {
+  letter-spacing: 0.05em;
+  user-select: none;
 }
 
 /* Chronometer */
@@ -1366,14 +1733,30 @@ onUnmounted(() => {
   filter: grayscale(100%);
 }
 
+.resizes-logo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .resizes-logo-link {
   display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   text-decoration: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.resizes-logo-wrapper.dropdown-active .resizes-logo-link {
+  transform: translateY(-2px) rotate(2deg) scale(1.05);
+  opacity: 0.9;
 }
 
 .resizes-logo-link:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) rotate(2deg) scale(1.05);
   opacity: 0.9;
 }
 
@@ -1381,11 +1764,129 @@ onUnmounted(() => {
   max-width: 300px;
   height: auto;
   filter: grayscale(100%);
-  transition: filter 0.3s ease;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  display: block;
 }
 
+.resizes-logo-wrapper.dropdown-active .resizes-logo,
 .resizes-logo-link:hover .resizes-logo {
   filter: grayscale(80%);
+}
+
+.resizes-dropdown {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 20px);
+  transform: translateY(-50%) translateX(-20px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              visibility 0.4s,
+              transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 2;
+  min-width: 160px;
+}
+
+.resizes-logo-wrapper.dropdown-active .resizes-dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(-50%) translateX(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #1a1a2e;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #1a1a2e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: translateX(-30px) rotate(-5deg);
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(26, 26, 46, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.dropdown-item:hover::before {
+  left: 100%;
+}
+
+.resizes-logo-wrapper.dropdown-active .dropdown-item-1 {
+  opacity: 1;
+  transform: translateX(0) rotate(2deg) scale(1);
+  transition-delay: 0.1s;
+}
+
+.resizes-logo-wrapper.dropdown-active .dropdown-item-2 {
+  opacity: 1;
+  transform: translateX(0) rotate(-2deg) scale(1);
+  transition-delay: 0.2s;
+}
+
+.resizes-logo-wrapper.dropdown-active .dropdown-item-3 {
+  opacity: 1;
+  transform: translateX(0) rotate(1deg) scale(1);
+  transition-delay: 0.3s;
+}
+
+.dropdown-item:hover {
+  transform: translateX(10px) rotate(3deg) scale(1.08) !important;
+  background: #1a1a2e;
+  color: whitesmoke;
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.3);
+  border-color: #1a1a2e;
+}
+
+.dropdown-item:hover .dropdown-icon {
+  transform: rotate(360deg) scale(1.2);
+  animation: bounce 0.6s ease;
+}
+
+.dropdown-icon {
+  font-size: 1.4rem;
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.dropdown-text {
+  flex: 1;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-item:hover .dropdown-text {
+  transform: translateX(4px);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) rotate(360deg) scale(1.2);
+  }
+  50% {
+    transform: translateY(-8px) rotate(360deg) scale(1.2);
+  }
 }
 
 .dash-container {
@@ -1808,6 +2309,13 @@ onUnmounted(() => {
     right: 20px;
   }
 
+  .language-toggle {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
   .where-worked-header {
     flex-direction: column;
     gap: 2.5rem;
@@ -1851,6 +2359,14 @@ onUnmounted(() => {
 
   .side-nav {
     right: 15px;
+  }
+
+  .language-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    min-width: 45px;
   }
 
   .nav-label {
