@@ -335,13 +335,13 @@
     </section>
 
     <!-- First job Section -->
-    <section id="first-job" class="section content-section">
+    <section id="first-job" class="section content-section first-job-section">
       <div class="ellipse-bg" aria-hidden="true">
         <img :src="ellipseImage" alt="" class="ellipse-img" />
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">First job</h2>
+          <h2 class="section-title">First new job</h2>
           <p class="section-subtitle">The beginning of my new career</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
@@ -352,7 +352,21 @@
               <h3 class="why-studied-point-title">Learning Everywhere</h3>
               <p class="why-studied-point-text">My first job at Minsait wasn't about development, but I think in all places you can learn. Every experience contributes to your growth as a professional.</p>
             </li>
+            <li class="why-studied-item minsait-logo-item">
+              <img
+                :src="minsaitLogo"
+                alt="Minsait"
+                class="minsait-logo"
+              />
+            </li>
           </ul>
+        </div>
+        <div class="first-job-image-content">
+          <img 
+            :src="rectangle28" 
+            alt="" 
+            class="rectangle-28"
+          />
         </div>
       </div>
       <button 
@@ -411,31 +425,51 @@
     <!-- Resizes Section -->
     <section id="resizes" class="section resizes-section">
       <div class="section-content">
-        <div class="text-content">
-          <img 
-            :src="resizesLogo" 
-            alt="Resizes" 
-            class="resizes-logo"
-          />
-          <div class="content-body">
-            <p>Content about Resizes...</p>
-          </div>
+        <div class="text-content resizes-center-content">
+          <a 
+            href="https://resiz.es" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="resizes-logo-link"
+          >
+            <img 
+              :src="resizesLogo" 
+              alt="Resizes" 
+              class="resizes-logo"
+            />
+          </a>
+          <p class="section-subtitle">My place</p>
         </div>
       </div>
+      <div class="dash-container">
+        <a 
+          href="https://dash.resiz.es/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="dash-logo-link"
+        >
+          <img 
+            :src="dashLogo" 
+            alt="Dash" 
+            class="dash-logo"
+          />
+        </a>
+      </div>
       <Transition name="toast-slide">
-        <div
+        <a
           v-if="resizesNotificationVisible"
+          href="mailto:hello@resiz.es"
           class="notification-content"
-          aria-hidden="true"
+          aria-label="Contact Resizes"
         >
           <img
             :src="notificationImage"
-            alt=""
+            alt="Contact Resizes"
             class="notification-image"
           />
-        </div>
+        </a>
       </Transition>
-      <div class="image-content">
+      <div class="image-content resizes-tube-image">
         <img 
           :src="tubeImage" 
           alt="3D Character" 
@@ -451,6 +485,9 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 import characterImage from '../assets/Gon_5_Standing_Outline0003.png'
 import profileImage from '../assets/Alberto González 1.png'
 import resizesLogo from '../assets/Resizes.png'
+import dashLogo from '../assets/dash.png'
+import rectangle28 from '../assets/Rectangle 28.png'
+import minsaitLogo from '../assets/minsait-logo-dark.svg'
 import tubeImage from '../assets/Tube_Medium_Standing.png'
 import platonicImage from '../assets/Platonic_2_-_Dodeca.png'
 import notificationImage from '../assets/Notification.png'
@@ -458,28 +495,10 @@ import ellipseImage from '../assets/Ellipse.png'
 
 const workExperience = ref([
   {
-    position: 'Full Stack Engineer',
-    company: 'Resizes',
-    location: 'Gijón, Principado de Asturias, España',
-    year: '2025'
-  },
-  {
-    position: 'Consultant y Analyst',
-    company: 'Minsait',
-    location: 'Gijón, Principado de Asturias, España',
-    year: '2024 - 2025'
-  },
-  {
-    position: 'Responsable de producción',
-    company: 'MYL ideas',
-    location: 'Asturias, Principado de Asturias, España',
-    year: '2022 - 2023'
-  },
-  {
-    position: 'CAD Designer, Specialist CAD Designer y Senior CAD Specialist',
-    company: 'Align Technology',
-    location: 'Madrid y alrededores',
-    year: '2018 - 2022'
+    position: 'Sales Advisor',
+    company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
+    location: 'Madrid, Gijón, Avilés y alrededores',
+    year: '2012 - 2017'
   },
   {
     position: 'Industrial Designer',
@@ -488,10 +507,28 @@ const workExperience = ref([
     year: '2016 - 2017'
   },
   {
-    position: 'Sales Advisor',
-    company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
-    location: 'Madrid, Gijón, Avilés y alrededores',
-    year: '2012 - 2017'
+    position: 'Senior CAD Specialist',
+    company: 'Align Technology',
+    location: 'Madrid y alrededores',
+    year: '2018 - 2022'
+  },
+  {
+    position: 'Responsable producción',
+    company: 'MYL ideas',
+    location: 'Asturias, Principado de Asturias, España',
+    year: '2022 - 2023'
+  },
+  {
+    position: 'Consultant y Analyst',
+    company: 'Minsait',
+    location: 'Gijón, Principado de Asturias, España',
+    year: '2024 - 2025'
+  },
+  {
+    position: 'Full Stack Engineer',
+    company: 'Resizes',
+    location: 'Gijón, Principado de Asturias, España',
+    year: '2025'
   }
 ])
 
@@ -782,6 +819,30 @@ onUnmounted(() => {
   text-align: left;
 }
 
+/* First job Section */
+.first-job-section .section-content {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.first-job-image-content {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.rectangle-28 {
+  height: auto;
+  max-width: 400px;
+  width: auto;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}
+
 /* When I studied Section */
 .when-studied-section {
   background: whitesmoke;
@@ -949,6 +1010,19 @@ onUnmounted(() => {
   line-height: 1.8;
   color: #333;
   margin: 0;
+}
+
+.minsait-logo-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.minsait-logo {
+  max-width: 200px;
+  height: auto;
+  filter: grayscale(100%);
 }
 
 /* Master vs. Bootcamp Comparison Styles */
@@ -1292,11 +1366,62 @@ onUnmounted(() => {
   filter: grayscale(100%);
 }
 
+.resizes-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.resizes-logo-link:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
 .resizes-logo {
   max-width: 300px;
   height: auto;
   filter: grayscale(100%);
-  margin-bottom: 2rem;
+  transition: filter 0.3s ease;
+}
+
+.resizes-logo-link:hover .resizes-logo {
+  filter: grayscale(80%);
+}
+
+.dash-container {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 40px;
+}
+
+.dash-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dash-logo-link:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.dash-logo {
+  max-width: 180px;
+  height: auto;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.dash-logo-link:hover .dash-logo {
+  filter: grayscale(80%);
 }
 
 /* Resizes Section */
@@ -1306,16 +1431,33 @@ onUnmounted(() => {
 }
 
 .resizes-section .section-content {
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+}
+
+.resizes-center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 2;
 }
 
 .resizes-section .notification-content {
   position: absolute;
   top: 16px;
   right: 16px;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 2;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.resizes-section .notification-content:hover {
+  transform: translateY(-2px);
+  opacity: 1;
 }
 
 .notification-image {
@@ -1323,6 +1465,11 @@ onUnmounted(() => {
   height: 55px;
   filter: grayscale(100%);
   opacity: 0.95;
+  transition: filter 0.3s ease;
+}
+
+.resizes-section .notification-content:hover .notification-image {
+  filter: grayscale(80%);
 }
 
 .toast-slide-enter-active,
@@ -1345,13 +1492,20 @@ onUnmounted(() => {
 .resizes-section .image-content {
   position: absolute;
   bottom: 0;
-  right: 0;
   width: auto;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   pointer-events: none;
   z-index: 1;
+}
+
+.resizes-tube-image {
+  left: 0;
+}
+
+.resizes-tube-image .character-image {
+  transform: scaleX(-1);
 }
 
 .section-title {
@@ -1885,6 +2039,15 @@ onUnmounted(() => {
     padding: 0.9rem;
   }
 
+  .first-job-section .section-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .rectangle-28 {
+    max-width: 100%;
+  }
+
   .timeline-marker {
     width: 14px;
     height: 14px;
@@ -1904,6 +2067,15 @@ onUnmounted(() => {
 
   .job-location {
     font-size: 0.8rem;
+  }
+
+  .first-job-section .section-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .rectangle-28 {
+    max-width: 100%;
   }
 }
 </style>
