@@ -1,5 +1,12 @@
 <template>
   <div class="landing-page">
+    <!-- Chronometer -->
+    <div class="chronometer" v-if="chronometerRunning || elapsedTime > 0">
+      <div class="chronometer-display">
+        {{ formatTime(elapsedTime) }}
+      </div>
+    </div>
+
     <!-- Right Side Navigation Menu -->
     <nav class="side-nav" ref="sideNav">
       <ul class="nav-list">
@@ -36,8 +43,9 @@
         />
       </div>
       <button 
+        v-if="hasNextSection('masterclass')"
         class="scroll-arrow-btn" 
-        @click="scrollToNextSection"
+        @click="startChronometer"
         aria-label="Scroll to next section"
       >
         <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -75,24 +83,242 @@
           </div>
         </div>
       </div>
+      <button 
+        v-if="hasNextSection('who-i-am')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Where I've worked Section -->
+    <section id="where-worked" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">Where I've worked</h2>
+          <div class="content-body">
+            <p>Content about your work experience...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('where-worked')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- When I studied UNIR Master Section -->
+    <section id="when-studied" class="section when-studied-section">
+      <div class="image-content-top">
+        <img 
+          :src="platonicImage" 
+          alt="Platonic Dodecahedron" 
+          class="platonic-image"
+        />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">When I studied UNIR Master</h2>
+          <div class="content-body">
+            <p>Content about when you studied...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('when-studied')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Why I studied UNIR Master Section -->
+    <section id="why-studied" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">Why I studied UNIR Master</h2>
+          <div class="content-body">
+            <p>Content about why you chose UNIR Master...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('why-studied')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Master vs. Bootcamp Section -->
+    <section id="master-vs-bootcamp" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">Master vs. Bootcamp</h2>
+          <div class="content-body">
+            <p>Content comparing Master vs. Bootcamp...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('master-vs-bootcamp')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- First job Section -->
+    <section id="first-job" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">First job</h2>
+          <div class="content-body">
+            <p>Content about your first job...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('first-job')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Soft Skills Section -->
+    <section id="soft-skills" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">Soft Skills</h2>
+          <div class="content-body">
+            <p>Content about soft skills...</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('soft-skills')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Resizes Section -->
+    <section id="resizes" class="section resizes-section">
+      <div class="section-content">
+        <div class="text-content">
+          <img 
+            :src="resizesLogo" 
+            alt="Resizes" 
+            class="resizes-logo"
+          />
+          <div class="content-body">
+            <p>Content about Resizes...</p>
+          </div>
+        </div>
+      </div>
+      <Transition name="toast-slide">
+        <div
+          v-if="resizesNotificationVisible"
+          class="notification-content"
+          aria-hidden="true"
+        >
+          <img
+            :src="notificationImage"
+            alt=""
+            class="notification-image"
+          />
+        </div>
+      </Transition>
+      <div class="image-content">
+        <img 
+          :src="tubeImage" 
+          alt="3D Character" 
+          class="character-image"
+        />
+      </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import characterImage from '../assets/Gon_5_Standing_Outline0003.png'
 import profileImage from '../assets/Alberto González 1.png'
+import resizesLogo from '../assets/Resizes.png'
+import tubeImage from '../assets/Tube_Medium_Standing.png'
+import platonicImage from '../assets/Platonic_2_-_Dodeca.png'
+import notificationImage from '../assets/Notification.png'
+import ellipseImage from '../assets/Ellipse.png'
 
 const sections = ref([
   { id: 'masterclass', label: 'Masterclass' },
-  { id: 'who-i-am', label: 'Who I am' }
+  { id: 'who-i-am', label: 'Who I am' },
+  { id: 'where-worked', label: 'Where I\'ve worked' },
+  { id: 'when-studied', label: 'When I studied' },
+  { id: 'why-studied', label: 'Why I studied' },
+  { id: 'master-vs-bootcamp', label: 'Master vs. Bootcamp' },
+  { id: 'first-job', label: 'First job' },
+  { id: 'soft-skills', label: 'Soft Skills' },
+  { id: 'resizes', label: 'Resizes' }
 ])
 
 const activeSection = ref('masterclass')
 const masterclassSection = ref(null)
 const whoIAmSection = ref(null)
 const sideNav = ref(null)
+
+// Chronometer state
+const chronometerRunning = ref(false)
+const elapsedTime = ref(0)
+let chronometerInterval = null
+const startTime = ref(0)
 
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId)
@@ -110,6 +336,38 @@ const scrollToNextSection = () => {
     scrollToSection(sections.value[nextIndex].id)
   }
 }
+
+const startChronometer = () => {
+  if (!chronometerRunning.value) {
+    chronometerRunning.value = true
+    startTime.value = Date.now() - elapsedTime.value
+    
+    chronometerInterval = setInterval(() => {
+      elapsedTime.value = Date.now() - startTime.value
+    }, 10) // Update every 10ms for smooth display
+  }
+  
+  // Also scroll to next section
+  scrollToNextSection()
+}
+
+const formatTime = (milliseconds) => {
+  const totalSeconds = Math.floor(milliseconds / 1000)
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  const centiseconds = Math.floor((milliseconds % 1000) / 10)
+  
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(centiseconds).padStart(2, '0')}`
+}
+
+const hasNextSection = (sectionId) => {
+  const currentIndex = sections.value.findIndex(s => s.id === sectionId)
+  return currentIndex >= 0 && currentIndex < sections.value.length - 1
+}
+
+// Resizes notification (toast)
+const resizesNotificationVisible = ref(false)
+let resizesNotificationTimeout = null
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY + window.innerHeight / 2
@@ -132,8 +390,32 @@ onMounted(() => {
   handleScroll() // Initial check
 })
 
+watch(activeSection, (newSection) => {
+  if (newSection !== 'resizes') {
+    resizesNotificationVisible.value = false
+    if (resizesNotificationTimeout) {
+      clearTimeout(resizesNotificationTimeout)
+      resizesNotificationTimeout = null
+    }
+    return
+  }
+
+  // Entering resizes section: show toast after 2 seconds
+  resizesNotificationVisible.value = false
+  if (resizesNotificationTimeout) clearTimeout(resizesNotificationTimeout)
+  resizesNotificationTimeout = setTimeout(() => {
+    resizesNotificationVisible.value = true
+  }, 2000)
+})
+
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  if (chronometerInterval) {
+    clearInterval(chronometerInterval)
+  }
+  if (resizesNotificationTimeout) {
+    clearTimeout(resizesNotificationTimeout)
+  }
 })
 </script>
 
@@ -143,6 +425,26 @@ onUnmounted(() => {
   background: whitesmoke;
   position: relative;
   font-family: 'Switzer', sans-serif;
+}
+
+/* Chronometer */
+.chronometer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chronometer-display {
+  font-family: 'Switzer', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 0.02em;
 }
 
 .section {
@@ -257,6 +559,138 @@ onUnmounted(() => {
   background: whitesmoke;
 }
 
+/* Content Sections */
+.content-section {
+  background: whitesmoke;
+}
+
+.content-section .section-content {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* When I studied Section */
+.when-studied-section {
+  background: whitesmoke;
+  position: relative;
+}
+
+.when-studied-section .section-content {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-top: 120px;
+}
+
+.image-content-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.platonic-image {
+  width: auto;
+  height: 70vh;
+  max-width: none;
+  object-fit: contain;
+  object-position: top center;
+  filter: grayscale(100%);
+}
+
+.content-body {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  max-width: 800px;
+}
+
+.ellipse-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ellipse-img {
+  height: 70vh;
+  width: auto;
+  opacity: 0.22;
+  filter: grayscale(100%);
+}
+
+.resizes-logo {
+  max-width: 300px;
+  height: auto;
+  filter: grayscale(100%);
+  margin-bottom: 2rem;
+}
+
+/* Resizes Section */
+.resizes-section {
+  background: whitesmoke;
+  position: relative;
+}
+
+.resizes-section .section-content {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.resizes-section .notification-content {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.notification-image {
+  width: auto;
+  height: 55px;
+  filter: grayscale(100%);
+  opacity: 0.95;
+}
+
+.toast-slide-enter-active,
+.toast-slide-leave-active {
+  transition: transform 280ms ease, opacity 280ms ease;
+}
+
+.toast-slide-enter-from,
+.toast-slide-leave-to {
+  transform: translateX(24px);
+  opacity: 0;
+}
+
+.toast-slide-enter-to,
+.toast-slide-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.resizes-section .image-content {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .section-title {
   font-size: 3rem;
   font-weight: 700;
@@ -285,7 +719,6 @@ onUnmounted(() => {
   height: 280px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #1a1a2e;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
@@ -394,23 +827,22 @@ onUnmounted(() => {
 .nav-label {
   font-size: 0.9rem;
   font-weight: 500;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  color: inherit;
-}
-
-.nav-item:hover .nav-label,
-.nav-item.active .nav-label,
-.nav-item:focus-within .nav-label {
   opacity: 1;
   transform: translateX(0);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  color: #d3d3d3;
 }
 
 .nav-item:hover .nav-link,
 .nav-item.active .nav-link,
 .nav-item:focus-within .nav-link {
+  color: #000;
+}
+
+.nav-item:hover .nav-label,
+.nav-item.active .nav-label,
+.nav-item:focus-within .nav-label {
   color: #000;
 }
 
@@ -425,6 +857,21 @@ onUnmounted(() => {
 .nav-item.active .nav-dot {
   background: #000;
   border-color: #000;
+}
+
+/* When one item is active, keep others grey */
+.nav-item:not(.active):not(:hover):not(:focus-within) .nav-link {
+  color: #d3d3d3;
+}
+
+.nav-item:not(.active):not(:hover):not(:focus-within) .nav-label {
+  color: #d3d3d3;
+}
+
+.nav-item:not(.active):not(:hover):not(:focus-within) .nav-dot {
+  background: #d3d3d3;
+  border-color: whitesmoke;
+  transform: scale(1);
 }
 
 /* Responsive Design */
@@ -483,6 +930,15 @@ onUnmounted(() => {
 
   .nav-label {
     display: none;
+  }
+
+  .ellipse-img {
+    height: 45vh;
+    opacity: 0.18;
+  }
+
+  .notification-image {
+    height: 45px;
   }
 }
 
