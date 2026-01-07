@@ -240,17 +240,35 @@
         <div class="text-content">
           <h2 class="section-title">When I studied UNIR Master</h2>
           <p class="section-subtitle">Timeline of my studies</p>
-          <ul class="why-studied-list">
-            <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Teachers</h3>
-            </li>
-            <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Didactic content</h3>
-            </li>
-            <li class="why-studied-item">
-              <h3 class="why-studied-point-title">Support</h3>
-            </li>
-          </ul>
+          <div class="steps-container">
+            <div class="steps-line"></div>
+            <div class="steps-wrapper">
+              <div class="step-item">
+                <div class="step-marker">
+                  <div class="step-number">1</div>
+                </div>
+                <div class="step-content">
+                  <h3 class="step-title">Teachers</h3>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-marker">
+                  <div class="step-number">2</div>
+                </div>
+                <div class="step-content">
+                  <h3 class="step-title">Didactic content</h3>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-marker">
+                  <div class="step-number">3</div>
+                </div>
+                <div class="step-content">
+                  <h3 class="step-title">Support</h3>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button 
@@ -274,8 +292,33 @@
         <div class="text-content">
           <h2 class="section-title">Master vs. Bootcamp</h2>
           <p class="section-subtitle">A comparative perspective</p>
-          <div class="content-body">
-            <p>Content comparing Master vs. Bootcamp...</p>
+          <div class="comparison-container">
+            <div class="comparison-column">
+              <h3 class="comparison-title">Master</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item">
+                  <h4 class="comparison-point-title">Content Structure</h4>
+                  <p class="comparison-point-text">The curriculum is well-organized and follows a clear structure, making it easier to follow a logical learning path.</p>
+                </li>
+                <li class="comparison-item">
+                  <h4 class="comparison-point-title">Formality of Activities</h4>
+                  <p class="comparison-point-text">Assignments and assessments follow a more formal, traditional academic approach.</p>
+                </li>
+              </ul>
+            </div>
+            <div class="comparison-column">
+              <h3 class="comparison-title">Bootcamp</h3>
+              <ul class="comparison-list">
+                <li class="comparison-item">
+                  <h4 class="comparison-point-title">Enhanced Collaborative Work</h4>
+                  <p class="comparison-point-text">There's a stronger emphasis on collaborative work, with more group projects that really push teamwork and peer learning.</p>
+                </li>
+                <li class="comparison-item">
+                  <h4 class="comparison-point-title">Greater GitHub Usage</h4>
+                  <p class="comparison-point-text">You'll use GitHub much more frequently for version control, managing projects, and showcasing your work—great practice with tools you'll actually use on the job.</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -299,10 +342,17 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">First job</h2>
-          <p class="section-subtitle">The beginning of my career</p>
-          <div class="content-body">
-            <p>Content about your first job...</p>
-          </div>
+          <p class="section-subtitle">The beginning of my new career</p>
+          <ul class="why-studied-list">
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">100 Doors</h3>
+              <p class="why-studied-point-text">You need to knock on 100 doors to get an opportunity. Persistence and determination are key when starting your career journey.</p>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Learning Everywhere</h3>
+              <p class="why-studied-point-text">My first job at Minsait wasn't about development, but I think in all places you can learn. Every experience contributes to your growth as a professional.</p>
+            </li>
+          </ul>
         </div>
       </div>
       <button 
@@ -326,9 +376,24 @@
         <div class="text-content">
           <h2 class="section-title">Soft Skills</h2>
           <p class="section-subtitle">Beyond technical expertise</p>
-          <div class="content-body">
-            <p>Content about soft skills...</p>
-          </div>
+          <ul class="why-studied-list">
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Communication</h3>
+              <p class="why-studied-point-text">Being able to clearly express your ideas, ask questions when you don't understand, and listen actively to others is crucial. Even if you're new to the field, showing that you can communicate effectively demonstrates your potential to learn and collaborate.</p>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Adaptability</h3>
+              <p class="why-studied-point-text">The tech industry changes rapidly. Employers value candidates who can adapt to new technologies, methodologies, and challenges. Show that you're willing to learn and embrace change, even when you're starting with limited knowledge.</p>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Problem-Solving Attitude</h3>
+              <p class="why-studied-point-text">You don't need to know everything, but showing that you approach problems with curiosity and persistence is valuable. Employers appreciate candidates who don't give up easily and are willing to research, ask for help, and try different solutions.</p>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Teamwork</h3>
+              <p class="why-studied-point-text">Most tech jobs involve working with others. Being collaborative, respectful, and supportive of your teammates matters more than having all the technical answers. Show that you can contribute to a team environment, even as you're learning.</p>
+            </li>
+          </ul>
         </div>
       </div>
       <button 
@@ -725,9 +790,17 @@ onUnmounted(() => {
 
 .when-studied-section .section-content {
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   margin-top: 120px;
+}
+
+.when-studied-section .text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .image-content-top {
@@ -750,6 +823,94 @@ onUnmounted(() => {
   object-fit: contain;
   object-position: top center;
   filter: grayscale(100%);
+}
+
+/* Horizontal Steps Styles */
+.steps-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 4rem auto 0;
+  z-index: 2;
+}
+
+.steps-line {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, #1a1a2e, #d3d3d3);
+  z-index: 1;
+}
+
+.steps-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  z-index: 2;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.step-item:hover {
+  transform: translateY(-5px);
+}
+
+.step-marker {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 4px solid whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.15);
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+
+.step-item:hover .step-marker {
+  background: #000;
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.25);
+  transform: scale(1.1);
+}
+
+.step-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: whitesmoke;
+  line-height: 1;
+}
+
+.step-content {
+  margin-top: 1.5rem;
+  text-align: center;
+  max-width: 200px;
+}
+
+.step-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.step-item:hover .step-title {
+  color: #000;
 }
 
 .content-body {
@@ -790,11 +951,66 @@ onUnmounted(() => {
   margin: 0;
 }
 
+/* Master vs. Bootcamp Comparison Styles */
+.comparison-container {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+}
+
+.comparison-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.comparison-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.comparison-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comparison-item {
+  margin-bottom: 2.5rem;
+}
+
+.comparison-item:last-child {
+  margin-bottom: 0;
+}
+
+.comparison-point-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.comparison-point-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin: 0;
+}
+
 /* Where I've worked Section Layout */
+#where-worked {
+  align-items: center;
+  padding-top: 10px;
+}
+
 #where-worked .section-content {
   max-width: 80%;
   width: 100%;
-  padding: 0;
 }
 
 #where-worked .text-content {
@@ -803,7 +1019,8 @@ onUnmounted(() => {
 }
 
 .where-worked-header {
-  margin-bottom: rem;
+  margin-top: -3rem;
+  margin-bottom: 10rem;
   max-width: 1400px;
   width: 100%;
 }
@@ -839,14 +1056,7 @@ onUnmounted(() => {
 }
 
 .timeline-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 3px;
-  background: #d3d3d3;
-  z-index: 1;
+  display: none;
 }
 
 .timeline-item {
@@ -898,17 +1108,18 @@ onUnmounted(() => {
   font-weight: 600;
   color: #1a1a2e;
   white-space: nowrap;
-  margin-top: 8px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
 }
 
 .timeline-item-top .timeline-year {
-  margin-top: 0;
-  margin-bottom: 8px;
+  top: calc(50% + 24px);
 }
 
 .timeline-item-bottom .timeline-year {
-  margin-top: 8px;
-  margin-bottom: 0;
+  bottom: calc(50% + 24px);
 }
 
 .timeline-connector {
@@ -1501,6 +1712,15 @@ onUnmounted(() => {
     height: 45px;
   }
 
+  .comparison-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .comparison-title {
+    font-size: 1.75rem;
+  }
+
   .where-worked-header {
     flex-direction: column;
     gap: 2rem;
@@ -1519,6 +1739,48 @@ onUnmounted(() => {
     flex-wrap: wrap;
     gap: 40px;
     padding: 0 10px;
+  }
+
+  .steps-container {
+    margin-top: 3rem;
+  }
+
+  .steps-wrapper {
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .steps-line {
+    display: none;
+  }
+
+  .step-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  .step-marker {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+  }
+
+  .step-number {
+    font-size: 1.2rem;
+  }
+
+  .step-content {
+    margin-top: 0;
+    text-align: center;
+    max-width: none;
+  }
+
+  .step-title {
+    font-size: 1.1rem;
   }
 
   .timeline-line {
@@ -1594,6 +1856,23 @@ onUnmounted(() => {
   .horizontal-timeline {
     gap: 30px;
     padding: 0 5px;
+  }
+
+  .steps-container {
+    margin-top: 2rem;
+  }
+
+  .step-marker {
+    width: 45px;
+    height: 45px;
+  }
+
+  .step-number {
+    font-size: 1rem;
+  }
+
+  .step-title {
+    font-size: 1rem;
   }
 
   .timeline-item {
