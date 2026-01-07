@@ -611,7 +611,7 @@ const translations = {
       }
     },
     firstJob: {
-      title: 'My First Job',
+      title: 'My First new Job',
       subtitle: 'The beginning of my new career',
       doors: {
         title: '100 Doors',
@@ -649,10 +649,10 @@ const translations = {
       masterclass: 'Masterclass',
       whoIAm: 'Who I am',
       whereWorked: 'Where I\'ve worked',
-      whyStudied: 'Why I studied',
+      whyStudied: 'Why?',
       whenStudied: 'When I studied',
       masterVsBootcamp: 'Master vs. Bootcamp',
-      firstJob: 'My First Job',
+      firstJob: 'New Job',
       softSkills: 'Soft Skills',
       resizes: 'Resizes'
     },
@@ -763,10 +763,10 @@ const translations = {
       masterclass: 'Masterclass',
       whoIAm: 'Quién soy',
       whereWorked: 'Dónde he trabajado',
-      whyStudied: 'Por qué estudié',
-      whenStudied: 'Cuándo estudié',
+      whyStudied: '¿Por qué?',
+      whenStudied: '¿Cuándo estudié?',
       masterVsBootcamp: 'Máster vs. Bootcamp',
-      firstJob: 'Mi primer trabajo',
+      firstJob: 'Nuevo trabajo',
       softSkills: 'Habilidades blandas',
       resizes: 'Resizes'
     },
@@ -965,9 +965,20 @@ onUnmounted(() => {
 <style scoped>
 .landing-page {
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   background: whitesmoke;
   position: relative;
   font-family: 'Switzer', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Safe area insets for modern mobile devices */
+@supports (padding: max(0px)) {
+  .landing-page {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
 }
 
 /* Language Toggle Button */
@@ -992,6 +1003,18 @@ onUnmounted(() => {
   justify-content: center;
   min-width: 50px;
   animation: fadeIn 0.3s ease;
+  transform: scale(0.8);
+  transform-origin: top right;
+}
+
+/* Safe area for language toggle on mobile */
+@supports (top: max(0px)) {
+  @media (max-width: 768px) {
+    .language-toggle {
+      top: max(10px, env(safe-area-inset-top));
+      right: max(10px, env(safe-area-inset-right));
+    }
+  }
 }
 
 @keyframes fadeIn {
@@ -1039,6 +1062,18 @@ onUnmounted(() => {
   border-radius: 6px;
   padding: 8px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: scale(0.8);
+  transform-origin: bottom left;
+}
+
+/* Safe area for chronometer on mobile */
+@supports (bottom: max(0px)) {
+  @media (max-width: 768px) {
+    .chronometer {
+      bottom: max(15px, env(safe-area-inset-bottom));
+      left: max(15px, env(safe-area-inset-left));
+    }
+  }
 }
 
 .chronometer-display {
@@ -1051,12 +1086,16 @@ onUnmounted(() => {
 
 .section {
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 40px;
   position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
+
 
 .section-content {
   max-width: 1400px;
@@ -1065,6 +1104,10 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 60px;
+  transform: scale(0.8);
+  transform-origin: center center;
+  position: relative;
+  box-sizing: border-box;
 }
 
 /* Masterclass Section */
@@ -1111,18 +1154,22 @@ onUnmounted(() => {
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1.25);
+  transform-origin: center bottom;
   width: 100%;
+  max-width: 100vw;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
 .character-image {
   width: auto;
   height: 90vh;
+  max-height: 800px;
   max-width: none;
   object-fit: contain;
   object-position: bottom center;
@@ -1133,7 +1180,8 @@ onUnmounted(() => {
   position: absolute;
   bottom: 30px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.8);
+  transform-origin: center bottom;
   background: transparent;
   border: 2px solid #000;
   border-radius: 50%;
@@ -1146,11 +1194,43 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   z-index: 10;
   padding: 0;
+  margin: 0;
+}
+
+/* Ensure consistent button position in all sections - especially Soft Skills */
+#soft-skills .scroll-arrow-btn {
+  bottom: 30px !important;
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(0.8) !important;
+  transform-origin: center bottom !important;
+  margin-bottom: 0 !important;
+}
+
+/* Safe area for scroll button on mobile */
+@supports (padding: max(0px)) {
+  @media (max-width: 768px) {
+    .scroll-arrow-btn {
+      bottom: max(20px, env(safe-area-inset-bottom));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .scroll-arrow-btn {
+      bottom: max(15px, env(safe-area-inset-bottom));
+    }
+  }
 }
 
 .scroll-arrow-btn:hover {
   background: #000;
-  transform: translateX(-50%) translateY(-5px);
+  transform: translateX(-50%) translateY(-5px) scale(0.8);
+  transform-origin: center bottom;
+}
+
+#soft-skills .scroll-arrow-btn:hover {
+  transform: translateX(-50%) translateY(-5px) scale(0.8) !important;
+  transform-origin: center bottom !important;
 }
 
 .scroll-arrow-btn:hover .arrow-icon {
@@ -1200,6 +1280,10 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   z-index: 2;
+  transform: scale(1.25);
+  transform-origin: center center;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .rectangle-28 {
@@ -1223,6 +1307,18 @@ onUnmounted(() => {
   margin-top: 120px;
 }
 
+@media (max-width: 768px) {
+  .when-studied-section .section-content {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .when-studied-section .section-content {
+    margin-top: 40px;
+  }
+}
+
 .when-studied-section .text-content {
   display: flex;
   flex-direction: column;
@@ -1235,18 +1331,22 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1.25);
+  transform-origin: center top;
   width: 100%;
+  max-width: 100vw;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
 .platonic-image {
   width: auto;
   height: 70vh;
+  max-height: 600px;
   max-width: none;
   object-fit: contain;
   object-position: top center;
@@ -1466,6 +1566,20 @@ onUnmounted(() => {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .where-worked-header {
+    margin-top: -1.5rem;
+    margin-bottom: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .where-worked-header {
+    margin-top: -1rem;
+    margin-bottom: 3rem;
+  }
+}
+
 .where-worked-header .section-title {
   margin-bottom: 0.5rem;
 }
@@ -1487,13 +1601,27 @@ onUnmounted(() => {
   margin-right: 0;
 }
 
+@media (max-width: 768px) {
+  .timeline-container-full {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-container-full {
+    padding: 30px 0;
+  }
+}
+
 .horizontal-timeline {
   position: relative;
   width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .timeline-line {
@@ -1721,13 +1849,17 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   right: 0;
-  transform: none;
+  transform: scale(1.25);
+  transform-origin: top right;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
+  max-width: 100vw;
 }
 
 .ellipse-img {
   height: 70vh;
+  max-height: 600px;
   width: auto;
   opacity: 0.22;
   filter: grayscale(100%);
@@ -1893,14 +2025,16 @@ onUnmounted(() => {
   position: absolute;
   bottom: 80px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.8);
+  transform-origin: center center;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
   width: 100%;
-  max-width: 1400px;
+  max-width: min(1400px, 100vw);
   padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .dash-logo-link {
@@ -1954,10 +2088,12 @@ onUnmounted(() => {
   text-decoration: none;
   display: inline-block;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: scale(0.8);
+  transform-origin: top right;
 }
 
 .resizes-section .notification-content:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(0.8);
   opacity: 1;
 }
 
@@ -1994,11 +2130,15 @@ onUnmounted(() => {
   position: absolute;
   bottom: 0;
   width: auto;
+  max-width: 100vw;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
+  transform: scale(1.25);
+  transform-origin: bottom left;
 }
 
 .resizes-tube-image {
@@ -2007,6 +2147,8 @@ onUnmounted(() => {
 
 .resizes-tube-image .character-image {
   transform: scaleX(-1);
+  height: 50vh;
+  max-height: 400px;
 }
 
 .section-title {
@@ -2034,6 +2176,18 @@ onUnmounted(() => {
   align-items: center;
   gap: 1rem;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .profile-content {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-content {
+    gap: 1.25rem;
+  }
 }
 
 .profile-image-wrapper {
@@ -2199,8 +2353,18 @@ onUnmounted(() => {
   position: fixed;
   right: 40px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(0.8);
+  transform-origin: center right;
   z-index: 1000;
+}
+
+/* Safe area for side nav on mobile */
+@supports (right: max(0px)) {
+  @media (max-width: 768px) {
+    .side-nav {
+      right: max(15px, env(safe-area-inset-right));
+    }
+  }
 }
 
 .nav-list {
@@ -2292,6 +2456,10 @@ onUnmounted(() => {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .section {
+    padding: 70px 30px;
+  }
+
   .section-content {
     flex-direction: column;
     text-align: center;
@@ -2303,6 +2471,17 @@ onUnmounted(() => {
 
   .character-image {
     height: 70vh;
+    max-height: 650px;
+  }
+
+  .platonic-image {
+    height: 60vh;
+    max-height: 500px;
+  }
+
+  .ellipse-img {
+    height: 60vh;
+    max-height: 500px;
   }
 
   .side-nav {
@@ -2319,17 +2498,36 @@ onUnmounted(() => {
   .where-worked-header {
     flex-direction: column;
     gap: 2.5rem;
+    margin-bottom: 6rem;
   }
 
   #where-worked .section-content {
     max-width: 100%;
     padding: 0 20px;
   }
+
+  .timeline-container-full {
+    padding: 60px 0;
+  }
+
+  .when-studied-section .section-content {
+    margin-top: 100px;
+  }
 }
 
 @media (max-width: 768px) {
   .section {
     padding: 60px 20px;
+    min-height: auto; /* Allow sections to size naturally on mobile */
+    min-height: auto;
+  }
+
+  .masterclass-section,
+  .who-i-am-section,
+  .when-studied-section,
+  .resizes-section {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .main-title {
@@ -2340,12 +2538,22 @@ onUnmounted(() => {
     font-size: 2rem;
   }
 
+  .section-subtitle {
+    margin-bottom: 2rem;
+  }
+
   .subtitle {
     font-size: 1.2rem;
   }
 
   .character-image {
-    height: 60vh;
+    height: 50vh;
+    max-height: 400px;
+  }
+
+  .platonic-image {
+    height: 40vh;
+    max-height: 300px;
   }
 
   .profile-image-wrapper {
@@ -2355,6 +2563,11 @@ onUnmounted(() => {
 
   .profile-name {
     font-size: 1.5rem;
+  }
+
+  .profile-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 
   .side-nav {
@@ -2374,7 +2587,8 @@ onUnmounted(() => {
   }
 
   .ellipse-img {
-    height: 45vh;
+    height: 35vh;
+    max-height: 250px;
     opacity: 0.18;
   }
 
@@ -2389,6 +2603,7 @@ onUnmounted(() => {
 
   .comparison-title {
     font-size: 1.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .where-worked-header {
@@ -2399,6 +2614,13 @@ onUnmounted(() => {
   #where-worked .section-content {
     max-width: 100%;
     padding: 0;
+  }
+
+  #where-worked {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    min-height: auto;
+    min-height: auto;
   }
 
   .timeline-container-full {
@@ -2412,7 +2634,7 @@ onUnmounted(() => {
   }
 
   .steps-container {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
 
   .steps-wrapper {
@@ -2495,18 +2717,117 @@ onUnmounted(() => {
     font-size: 0.95rem;
   }
 
-  .timeline-content {
-    padding: 1rem;
+  .why-studied-list {
+    margin-top: 1.5rem;
+  }
+
+  .why-studied-item {
+    margin-bottom: 2rem;
+  }
+
+  .why-studied-point-title {
+    font-size: 1.3rem;
+  }
+
+  .why-studied-point-text {
+    font-size: 1rem;
+  }
+
+  .content-section {
+    min-height: auto;
+    min-height: auto;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .first-job-section .section-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .rectangle-28 {
+    max-width: 100%;
+    max-height: 300px;
+  }
+
+  .resizes-section {
+    padding-bottom: 100px;
+  }
+
+  .resizes-tube-image .character-image {
+    height: 40vh;
+    max-height: 300px;
+  }
+
+  .dash-container {
+    bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .dash-logo {
+    max-width: 140px;
+  }
+
+  .resizes-logo {
+    max-width: 250px;
+  }
+
+  .scroll-arrow-btn {
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 
 @media (max-width: 480px) {
+  .section {
+    padding: 40px 15px;
+    min-height: auto;
+    min-height: auto;
+  }
+
+  .masterclass-section,
+  .who-i-am-section,
+  .when-studied-section,
+  .resizes-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
   .main-title {
     font-size: 2rem;
+    line-height: 1.1;
   }
 
   .section-title {
     font-size: 1.75rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+  }
+
+  .character-image {
+    height: 45vh;
+    max-height: 350px;
+  }
+
+  .platonic-image {
+    height: 35vh;
+    max-height: 250px;
   }
 
   .where-worked-header {
@@ -2517,6 +2838,11 @@ onUnmounted(() => {
   #where-worked .section-content {
     max-width: 100%;
     padding: 0;
+  }
+
+  #where-worked {
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   .timeline-container-full {
@@ -2532,6 +2858,10 @@ onUnmounted(() => {
     margin-top: 2rem;
   }
 
+  .steps-wrapper {
+    gap: 2rem;
+  }
+
   .step-marker {
     width: 45px;
     height: 45px;
@@ -2543,6 +2873,7 @@ onUnmounted(() => {
 
   .step-title {
     font-size: 1rem;
+    line-height: 1.3;
   }
 
   .timeline-item {
@@ -2553,15 +2884,7 @@ onUnmounted(() => {
   .timeline-content {
     width: 100%;
     padding: 0.9rem;
-  }
-
-  .first-job-section .section-content {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .rectangle-28 {
-    max-width: 100%;
+    margin-top: 15px;
   }
 
   .timeline-marker {
@@ -2575,10 +2898,12 @@ onUnmounted(() => {
 
   .job-position {
     font-size: 0.9rem;
+    margin-bottom: 0.4rem;
   }
 
   .job-company {
     font-size: 0.85rem;
+    margin-bottom: 0.3rem;
   }
 
   .job-location {
@@ -2592,6 +2917,122 @@ onUnmounted(() => {
 
   .rectangle-28 {
     max-width: 100%;
+    max-height: 250px;
+  }
+
+  .profile-image-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+
+  .profile-name {
+    font-size: 1.3rem;
+  }
+
+  .profile-title {
+    font-size: 1rem;
+  }
+
+  .why-studied-list {
+    margin-top: 1.5rem;
+  }
+
+  .why-studied-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .why-studied-point-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-studied-point-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .comparison-container {
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .comparison-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .comparison-item {
+    margin-bottom: 2rem;
+  }
+
+  .comparison-point-title {
+    font-size: 1.15rem;
+  }
+
+  .comparison-point-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .ellipse-img {
+    height: 30vh;
+    max-height: 200px;
+  }
+
+  .content-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .resizes-section {
+    padding-bottom: 80px;
+  }
+
+  .resizes-tube-image .character-image {
+    height: 35vh;
+    max-height: 250px;
+  }
+
+  .resizes-logo {
+    max-width: 200px;
+  }
+
+  .dash-logo {
+    max-width: 120px;
+  }
+
+  .dash-container {
+    bottom: 30px;
+    padding: 0 15px;
+  }
+
+  .notification-image {
+    height: 40px;
+  }
+
+  .minsait-logo {
+    max-width: 150px;
+  }
+
+  .scroll-arrow-btn {
+    bottom: 15px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .arrow-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .chronometer {
+    bottom: 15px;
+    left: 15px;
+    padding: 6px 10px;
+  }
+
+  .chronometer-display {
+    font-size: 0.9rem;
   }
 }
 </style>
