@@ -31,7 +31,7 @@
     <section id="masterclass" class="section masterclass-section" ref="masterclassSection">
       <div class="section-content">
         <div class="text-content">
-          <h1 class="main-title">UNIR - Masterclass</h1>
+          <h1 class="main-title">UNIR - <span class="light-text">Masterclass</span></h1>
           <p class="subtitle">How to survive kit</p>
         </div>
       </div>
@@ -59,7 +59,7 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">Who I am</h2>
-          <p class="section-subtitle">The participants of this hackathon</p>
+          <p class="section-subtitle">From Industrial Design to Web development</p>
         </div>
         <div class="profile-content">
           <div class="profile-image-wrapper">
@@ -68,13 +68,66 @@
               alt="Alberto González" 
               class="profile-image"
             />
+            <div class="profile-hover-overlay">
+              <svg class="arrows-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; overflow: visible; pointer-events: none;">
+                <defs>
+                  <marker id="arrowhead-profile" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="strokeWidth">
+                    <path d="M 0,2 Q 2,4 4,4 Q 6,4 8,3 Q 10,2 12,4" stroke="#1a1a2e" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </marker>
+                  <filter id="rough-paper" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise"/>
+                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
+                  </filter>
+                </defs>
+              </svg>
+              <div class="hover-item item-1">
+                <svg class="arrow-line" viewBox="0 0 200 50" preserveAspectRatio="none">
+                  <path d="M 0,23 Q 15,20 30,22 Q 45,24 60,23 Q 75,22 90,24 Q 105,26 120,24 Q 135,22 150,23 Q 165,24 180,22 Q 195,20 200,25" 
+                        stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
+                </svg>
+                <div class="hover-label">
+                  <div class="label-line-1">Diseño Industrial</div>
+                  <div class="label-line-2">ESAPA</div>
+                </div>
+              </div>
+              <div class="hover-item item-2">
+                <svg class="arrow-line" viewBox="0 0 200 50" preserveAspectRatio="none">
+                  <path d="M 0,25 Q 18,23 35,25 Q 52,27 70,25 Q 88,23 105,24 Q 122,25 140,26 Q 158,27 175,25 Q 192,23 200,25" 
+                        stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
+                </svg>
+                <div class="hover-label">
+                  <div class="label-line-1">Máster Full Stack</div>
+                  <div class="label-line-2">UNIR</div>
+                </div>
+              </div>
+              <div class="hover-item item-3">
+                <svg class="arrow-line" viewBox="0 0 200 50" preserveAspectRatio="none">
+                  <path d="M 0,27 Q 20,24 40,26 Q 60,28 80,27 Q 100,26 120,25 Q 140,24 160,26 Q 180,28 200,25" 
+                        stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
+                </svg>
+                <div class="hover-label">
+                  <div class="label-line-1">Bootcamp Full Stack</div>
+                  <div class="label-line-2">Factoría F5</div>
+                </div>
+              </div>
+              <div class="hover-item item-4">
+                <svg class="arrow-line" viewBox="0 0 200 50" preserveAspectRatio="none">
+                  <path d="M 0,24 Q 16,26 32,24 Q 48,22 64,23 Q 80,24 96,25 Q 112,26 128,25 Q 144,24 160,23 Q 176,22 192,24 Q 196,24 200,25" 
+                        stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
+                </svg>
+                <div class="hover-label">
+                  <div class="label-line-1">Prueba y error</div>
+                  <div class="label-line-2">La vida</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="profile-info">
             <h3 class="profile-name">Alberto González</h3>
             <p class="profile-title">Full Stack Engineer</p>
             <div class="profile-social">
-              <a href="https://linkedin.com/in/albegosu" target="_blank" class="social-link">
-                <span class="social-handle">/albegosu/</span>
+              <a href="https://www.linkedin.com/in/albegosu/" target="_blank" class="social-link">
+                <span class="social-handle">/albegosu</span>
                 <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                 </svg>
@@ -101,15 +154,69 @@
         <img :src="ellipseImage" alt="" class="ellipse-img" />
       </div>
       <div class="section-content">
+          <div class="where-worked-header">
+            <h2 class="section-title">Where I've worked</h2>
+            <p class="section-subtitle">My professional journey</p>
+          </div>
         <div class="text-content">
-          <h2 class="section-title">Where I've worked</h2>
-          <div class="content-body">
-            <p>Content about your work experience...</p>
+          <div class="timeline-container-full">
+            <div class="horizontal-timeline">
+              <div class="timeline-line"></div>
+              <div 
+                v-for="(job, index) in workExperience" 
+                :key="index"
+                :class="['timeline-item', index % 2 === 0 ? 'timeline-item-top' : 'timeline-item-bottom']"
+              >
+                <div class="timeline-marker-wrapper">
+                  <div :class="['timeline-marker', index % 2 === 0 ? 'marker-top' : 'marker-bottom']"></div>
+                  <div class="timeline-year">{{ job.year }}</div>
+                  <div class="timeline-connector"></div>
+                </div>
+                <div class="timeline-content">
+                  <div class="job-position">{{ job.position }}</div>
+                  <div class="job-company">{{ job.company }}</div>
+                  <div class="job-location">{{ job.location }}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <button 
         v-if="hasNextSection('where-worked')"
+        class="scroll-arrow-btn" 
+        @click="scrollToNextSection"
+        aria-label="Scroll to next section"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Why I studied UNIR Master Section -->
+    <section id="why-studied" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title">Why I studied UNIR Master</h2>
+          <p class="section-subtitle">The motivation behind my choice</p>
+          <ul class="why-studied-list">
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Stack</h3>
+              <p class="why-studied-point-text">The comprehensive technology stack covered in the program aligned perfectly with my career goals and the current industry demands.</p>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">LinkedIn Search of UNIR Alumni</h3>
+              <p class="why-studied-point-text">Researching UNIR Master alumni on LinkedIn showed impressive career trajectories and successful transitions into tech roles, which validated the program's effectiveness.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button 
+        v-if="hasNextSection('why-studied')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
         aria-label="Scroll to next section"
@@ -132,38 +239,22 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">When I studied UNIR Master</h2>
-          <div class="content-body">
-            <p>Content about when you studied...</p>
-          </div>
+          <p class="section-subtitle">Timeline of my studies</p>
+          <ul class="why-studied-list">
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Teachers</h3>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Didactic content</h3>
+            </li>
+            <li class="why-studied-item">
+              <h3 class="why-studied-point-title">Support</h3>
+            </li>
+          </ul>
         </div>
       </div>
       <button 
         v-if="hasNextSection('when-studied')"
-        class="scroll-arrow-btn" 
-        @click="scrollToNextSection"
-        aria-label="Scroll to next section"
-      >
-        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 9l6 6 6-6"/>
-        </svg>
-      </button>
-    </section>
-
-    <!-- Why I studied UNIR Master Section -->
-    <section id="why-studied" class="section content-section">
-      <div class="ellipse-bg" aria-hidden="true">
-        <img :src="ellipseImage" alt="" class="ellipse-img" />
-      </div>
-      <div class="section-content">
-        <div class="text-content">
-          <h2 class="section-title">Why I studied UNIR Master</h2>
-          <div class="content-body">
-            <p>Content about why you chose UNIR Master...</p>
-          </div>
-        </div>
-      </div>
-      <button 
-        v-if="hasNextSection('why-studied')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
         aria-label="Scroll to next section"
@@ -182,6 +273,7 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">Master vs. Bootcamp</h2>
+          <p class="section-subtitle">A comparative perspective</p>
           <div class="content-body">
             <p>Content comparing Master vs. Bootcamp...</p>
           </div>
@@ -207,6 +299,7 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">First job</h2>
+          <p class="section-subtitle">The beginning of my career</p>
           <div class="content-body">
             <p>Content about your first job...</p>
           </div>
@@ -232,6 +325,7 @@
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title">Soft Skills</h2>
+          <p class="section-subtitle">Beyond technical expertise</p>
           <div class="content-body">
             <p>Content about soft skills...</p>
           </div>
@@ -297,12 +391,51 @@ import platonicImage from '../assets/Platonic_2_-_Dodeca.png'
 import notificationImage from '../assets/Notification.png'
 import ellipseImage from '../assets/Ellipse.png'
 
+const workExperience = ref([
+  {
+    position: 'Full Stack Engineer',
+    company: 'Resizes',
+    location: 'Gijón, Principado de Asturias, España',
+    year: '2025'
+  },
+  {
+    position: 'Consultant y Analyst',
+    company: 'Minsait',
+    location: 'Gijón, Principado de Asturias, España',
+    year: '2024 - 2025'
+  },
+  {
+    position: 'Responsable de producción',
+    company: 'MYL ideas',
+    location: 'Asturias, Principado de Asturias, España',
+    year: '2022 - 2023'
+  },
+  {
+    position: 'CAD Designer, Specialist CAD Designer y Senior CAD Specialist',
+    company: 'Align Technology',
+    location: 'Madrid y alrededores',
+    year: '2018 - 2022'
+  },
+  {
+    position: 'Industrial Designer',
+    company: 'enPieza eStudio',
+    location: 'Madrid y alrededores',
+    year: '2016 - 2017'
+  },
+  {
+    position: 'Sales Advisor',
+    company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
+    location: 'Madrid, Gijón, Avilés y alrededores',
+    year: '2012 - 2017'
+  }
+])
+
 const sections = ref([
   { id: 'masterclass', label: 'Masterclass' },
   { id: 'who-i-am', label: 'Who I am' },
   { id: 'where-worked', label: 'Where I\'ve worked' },
-  { id: 'when-studied', label: 'When I studied' },
   { id: 'why-studied', label: 'Why I studied' },
+  { id: 'when-studied', label: 'When I studied' },
   { id: 'master-vs-bootcamp', label: 'Master vs. Bootcamp' },
   { id: 'first-job', label: 'First job' },
   { id: 'soft-skills', label: 'Soft Skills' },
@@ -477,24 +610,32 @@ onUnmounted(() => {
 }
 
 .text-content {
-  flex: 1;
   z-index: 2;
 }
+
+
 
 .main-title {
   font-size: 4rem;
   font-weight: 700;
   color: #1a1a2e;
-  margin-bottom: 1rem;
   line-height: 1.2;
   letter-spacing: -0.02em;
+}
+
+.light-text {
+  font-weight: 300;
 }
 
 .subtitle {
   font-size: 1.5rem;
   font-weight: 400;
-  color: #666;
   margin-top: 0.5rem;
+  background: linear-gradient(to right, #d3d3d3, #555);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .masterclass-section .image-content {
@@ -559,6 +700,12 @@ onUnmounted(() => {
   background: whitesmoke;
 }
 
+.who-i-am-section .section-content {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
 /* Content Sections */
 .content-section {
   background: whitesmoke;
@@ -611,6 +758,311 @@ onUnmounted(() => {
   line-height: 1.8;
   color: #333;
   max-width: 800px;
+}
+
+.why-studied-list {
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+}
+
+.why-studied-item {
+  margin-bottom: 2.5rem;
+}
+
+.why-studied-item:last-child {
+  margin-bottom: 0;
+}
+
+.why-studied-point-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.why-studied-point-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin: 0;
+}
+
+/* Where I've worked Section Layout */
+#where-worked .section-content {
+  max-width: 80%;
+  width: 100%;
+  padding: 0;
+}
+
+#where-worked .text-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+.where-worked-header {
+  margin-bottom: rem;
+  max-width: 1400px;
+  width: 100%;
+}
+
+.where-worked-header .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.where-worked-header .section-subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+}
+
+/* Horizontal Timeline Styles */
+.timeline-container-full {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 80px 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.horizontal-timeline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 3px;
+  background: #d3d3d3;
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.timeline-item-top {
+  align-items: center;
+}
+
+.timeline-item-bottom {
+  align-items: center;
+}
+
+.timeline-marker-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.timeline-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 4px solid whitesmoke;
+  z-index: 3;
+  box-shadow: 0 0 0 2px #1a1a2e;
+  position: relative;
+}
+
+.marker-top {
+  transform: translateY(-12px);
+}
+
+.marker-bottom {
+  transform: translateY(12px);
+}
+
+.timeline-year {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  white-space: nowrap;
+  margin-top: 8px;
+}
+
+.timeline-item-top .timeline-year {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.timeline-item-bottom .timeline-year {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.timeline-connector {
+  position: absolute;
+  width: 2px;
+  background: #d3d3d3;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-item-top .timeline-connector {
+  bottom: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.timeline-item-bottom .timeline-connector {
+  top: 100%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.timeline-content {
+  position: absolute;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.timeline-item-top .timeline-content {
+  bottom: 100%;
+  margin-bottom: 100px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.timeline-item-bottom .timeline-content {
+  top: 100%;
+  margin-top: 100px;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.timeline-item:hover .timeline-content {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.job-position {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.job-company {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 0.4rem;
+}
+
+.job-location {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+
+.job-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.job-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.job-company {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.job-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.job-period {
+  font-weight: 500;
+}
+
+.job-duration {
+  color: #999;
+}
+
+.job-location {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.job-type {
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.job-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 0.75rem 0;
+}
+
+.job-skills {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.skills-label {
+  font-weight: 600;
+  color: #555;
+  margin-right: 8px;
+}
+
+.skills-list {
+  color: #666;
 }
 
 .ellipse-bg {
@@ -702,15 +1154,19 @@ onUnmounted(() => {
 .section-subtitle {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #666;
   margin-bottom: 3rem;
+  background: linear-gradient(to right, #d3d3d3, #555);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .profile-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
 }
 
@@ -718,8 +1174,10 @@ onUnmounted(() => {
   width: 280px;
   height: 280px;
   border-radius: 50%;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
 }
 
 .profile-image {
@@ -727,6 +1185,88 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   filter: grayscale(100%);
+  border-radius: 50%;
+}
+
+.profile-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  overflow: visible;
+}
+
+.profile-image-wrapper:hover .profile-hover-overlay {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.hover-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+}
+
+.item-1 {
+  top: 12%;
+  left: 100%;
+  margin-left: 20px;
+}
+
+.item-2 {
+  top: 30%;
+  left: 100%;
+  margin-left: 20px;
+}
+
+.item-3 {
+  top: 50%;
+  left: 100%;
+  margin-left: 20px;
+}
+
+.item-4 {
+  top: 70%;
+  left: 100%;
+  margin-left: 20px;
+}
+
+.arrow-line {
+  width: 120px;
+  height: 40px;
+  overflow: visible;
+}
+
+.arrow-line path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+  opacity: 0.85;
+}
+
+.hover-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+.label-line-1 {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.label-line-2 {
+  font-weight: 400;
+  opacity: 0.8;
 }
 
 .profile-info {
@@ -761,11 +1301,20 @@ onUnmounted(() => {
   text-decoration: none;
   color: #1a1a2e;
   font-size: 1rem;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .social-link:hover {
-  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  color: #0077b5;
+}
+
+.social-link:hover .linkedin-icon {
+  fill: #0077b5;
+  transform: scale(1.1);
 }
 
 .social-handle {
@@ -776,6 +1325,7 @@ onUnmounted(() => {
   width: 20px;
   height: 20px;
   fill: #0077b5;
+  transition: all 0.3s ease;
 }
 
 /* Right Side Navigation */
@@ -892,6 +1442,16 @@ onUnmounted(() => {
   .side-nav {
     right: 20px;
   }
+
+  .where-worked-header {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  #where-worked .section-content {
+    max-width: 100%;
+    padding: 0 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -940,6 +1500,72 @@ onUnmounted(() => {
   .notification-image {
     height: 45px;
   }
+
+  .where-worked-header {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  #where-worked .section-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .timeline-container-full {
+    padding: 40px 0;
+  }
+
+  .horizontal-timeline {
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 0 10px;
+  }
+
+  .timeline-line {
+    display: none;
+  }
+
+  .timeline-item {
+    flex: 0 0 calc(50% - 20px);
+    min-width: 200px;
+  }
+
+  .timeline-connector {
+    display: none;
+  }
+
+  .timeline-content {
+    position: relative;
+    width: 100%;
+    margin: 20px 0 0 0;
+    transform: none;
+    left: auto;
+  }
+
+  .timeline-item-top .timeline-content,
+  .timeline-item-bottom .timeline-content {
+    position: relative;
+    margin: 20px 0 0 0;
+    transform: none;
+    left: auto;
+  }
+
+  .timeline-marker {
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline-year {
+    font-size: 0.85rem;
+  }
+
+  .job-position {
+    font-size: 0.95rem;
+  }
+
+  .timeline-content {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -949,6 +1575,56 @@ onUnmounted(() => {
 
   .section-title {
     font-size: 1.75rem;
+  }
+
+  .where-worked-header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  #where-worked .section-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .timeline-container-full {
+    padding: 30px 0;
+  }
+
+  .horizontal-timeline {
+    gap: 30px;
+    padding: 0 5px;
+  }
+
+  .timeline-item {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .timeline-content {
+    width: 100%;
+    padding: 0.9rem;
+  }
+
+  .timeline-marker {
+    width: 14px;
+    height: 14px;
+  }
+
+  .timeline-year {
+    font-size: 0.8rem;
+  }
+
+  .job-position {
+    font-size: 0.9rem;
+  }
+
+  .job-company {
+    font-size: 0.85rem;
+  }
+
+  .job-location {
+    font-size: 0.8rem;
   }
 }
 </style>
