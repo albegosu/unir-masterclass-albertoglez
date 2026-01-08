@@ -789,37 +789,37 @@ const workExperience = computed(() => [
   {
     position: currentLanguage.value === 'en' ? 'Sales Advisor' : 'Asesor de ventas',
     company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
-    location: currentLanguage.value === 'en' ? 'Madrid, Gijón, Avilés and surrounding areas' : 'Madrid, Gijón, Avilés y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Gijón, Avilés. Spain' : 'Madrid, Gijón, Avilés y alrededores',
     year: '2012 - 2017'
   },
   {
     position: currentLanguage.value === 'en' ? 'Industrial Designer' : 'Diseñador Industrial',
     company: 'enPieza eStudio',
-    location: currentLanguage.value === 'en' ? 'Madrid and surrounding areas' : 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid y alrededores',
     year: '2016 - 2017'
   },
   {
     position: currentLanguage.value === 'en' ? 'Senior CAD Specialist' : 'Especialista CAD Senior',
     company: 'Align Technology',
-    location: currentLanguage.value === 'en' ? 'Madrid and surrounding areas' : 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid y alrededores',
     year: '2018 - 2022'
   },
   {
     position: currentLanguage.value === 'en' ? 'Production Manager' : 'Responsable de producción',
     company: 'MYL ideas',
-    location: currentLanguage.value === 'en' ? 'Asturias, Principado de Asturias, Spain' : 'Asturias, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Oviedo, Asturias, Spain' : 'Oviedo, Asturias, España',
     year: '2022 - 2023'
   },
   {
     position: currentLanguage.value === 'en' ? 'Consultant and Analyst' : 'Consultor y Analista',
     company: 'Minsait',
-    location: currentLanguage.value === 'en' ? 'Gijón, Principado de Asturias, Spain' : 'Gijón, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
     year: '2024 - 2025'
   },
   {
     position: currentLanguage.value === 'en' ? 'Full Stack Engineer' : 'Ingeniero Full Stack',
     company: 'Resizes',
-    location: currentLanguage.value === 'en' ? 'Gijón, Principado de Asturias, Spain' : 'Gijón, Principado de Asturias, España',
+    location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
     year: '2025'
   }
 ])
