@@ -1,5 +1,12 @@
 <template>
   <div class="landing-page">
+    <!-- Generative Background Canvas -->
+    <canvas
+      ref="noiseCanvas"
+      class="generative-bg"
+      aria-hidden="true"
+    ></canvas>
+
     <!-- Language Toggle Button -->
     <Transition name="fade">
       <button 
@@ -7,7 +14,7 @@
         class="language-toggle" 
         @click="toggleLanguage"
         :aria-label="currentLanguage === 'en' ? 'Cambiar a español' : 'Switch to English'"
-        title="Toggle language"
+        :title="t.aria.toggleLanguage"
       >
         <span class="language-code">{{ currentLanguage.toUpperCase() }}</span>
       </button>
@@ -51,7 +58,7 @@
       <div class="image-content">
         <img 
           :src="characterImage" 
-          alt="3D Character" 
+          :alt="t.alt.character"
           class="character-image"
         />
       </div>
@@ -71,8 +78,8 @@
     <section id="who-i-am" class="section who-i-am-section" ref="whoIAmSection">
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.whoIAm.title }}</h2>
-          <p class="section-subtitle">{{ t.whoIAm.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.whoIAm.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.whoIAm.subtitle }}</p>
         </div>
         <div class="profile-content">
           <div class="profile-image-wrapper">
@@ -99,7 +106,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.industrialDesign : 'Diseño Industrial' }}</div>
+                  <div class="label-line-1">{{ t.whoIAm.profileHover.industrialDesign }}</div>
                   <div class="label-line-2">ESAPA</div>
                 </div>
               </div>
@@ -109,7 +116,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.masterFullStack : 'Máster Full Stack' }}</div>
+                  <div class="label-line-1">{{ t.whoIAm.profileHover.masterFullStack }}</div>
                   <div class="label-line-2">UNIR</div>
                 </div>
               </div>
@@ -119,7 +126,7 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.bootcampFullStack : 'Bootcamp Full Stack' }}</div>
+                  <div class="label-line-1">{{ t.whoIAm.profileHover.bootcampFullStack }}</div>
                   <div class="label-line-2">Factoría F5</div>
                 </div>
               </div>
@@ -129,8 +136,8 @@
                         stroke="#1a1a2e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead-profile)" opacity="0.9"/>
                 </svg>
                 <div class="hover-label">
-                  <div class="label-line-1">{{ currentLanguage === 'en' ? t.whoIAm.profileHover.trialAndError : 'Prueba y error' }}</div>
-                  <div class="label-line-2">La vida</div>
+                  <div class="label-line-1">{{ t.whoIAm.profileHover.trialAndError }}</div>
+                  <div class="label-line-2">{{ t.whoIAm.profileHover.life }}</div>
                 </div>
               </div>
             </div>
@@ -168,8 +175,8 @@
       </div>
       <div class="section-content">
           <div class="where-worked-header">
-            <h2 class="section-title">{{ t.whereWorked.title }}</h2>
-            <p class="section-subtitle">{{ t.whereWorked.subtitle }}</p>
+            <h2 class="section-title scroll-reveal">{{ t.whereWorked.title }}</h2>
+            <p class="section-subtitle scroll-reveal">{{ t.whereWorked.subtitle }}</p>
           </div>
         <div class="text-content">
           <div class="timeline-container-full">
@@ -214,8 +221,8 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.whyStudied.title }}</h2>
-          <p class="section-subtitle">{{ t.whyStudied.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.whyStudied.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.whyStudied.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
               <h3 class="why-studied-point-title">{{ t.whyStudied.stack.title }}</h3>
@@ -245,14 +252,14 @@
       <div class="image-content-top">
         <img 
           :src="platonicImage" 
-          alt="Platonic Dodecahedron" 
+          :alt="t.alt.platonic"
           class="platonic-image"
         />
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.whenStudied.title }}</h2>
-          <p class="section-subtitle">{{ t.whenStudied.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.whenStudied.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.whenStudied.subtitle }}</p>
           <div class="steps-container">
             <div class="steps-line"></div>
             <div class="steps-wrapper">
@@ -303,8 +310,8 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.masterVsBootcamp.title }}</h2>
-          <p class="section-subtitle">{{ t.masterVsBootcamp.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.masterVsBootcamp.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.masterVsBootcamp.subtitle }}</p>
           <div class="comparison-container">
             <div class="comparison-column">
               <h3 class="comparison-title">{{ t.masterVsBootcamp.master.title }}</h3>
@@ -354,8 +361,8 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.firstJob.title }}</h2>
-          <p class="section-subtitle">{{ t.firstJob.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.firstJob.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.firstJob.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
               <h3 class="why-studied-point-title">{{ t.firstJob.doors.title }}</h3>
@@ -401,8 +408,8 @@
       </div>
       <div class="section-content">
         <div class="text-content">
-          <h2 class="section-title">{{ t.softSkills.title }}</h2>
-          <p class="section-subtitle">{{ t.softSkills.subtitle }}</p>
+          <h2 class="section-title scroll-reveal">{{ t.softSkills.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.softSkills.subtitle }}</p>
           <ul class="why-studied-list">
             <li class="why-studied-item">
               <h3 class="why-studied-point-title">{{ t.softSkills.communication.title }}</h3>
@@ -437,92 +444,271 @@
 
     <!-- Resizes Section -->
     <section id="resizes" class="section resizes-section">
-      <div class="section-content">
-        <div class="text-content resizes-center-content">
-          <div class="resizes-logo-wrapper" :class="{ 'dropdown-active': resizesDropdownOpen }" ref="resizesDropdownWrapper">
-            <button 
-              @click="toggleResizesDropdown"
-              class="resizes-logo-link"
-              type="button"
-              :aria-expanded="resizesDropdownOpen"
-              aria-label="Toggle Resizes menu"
+      <div class="section-content resizes-redesigned">
+        <div class="resizes-main-content">
+          <div class="resizes-left-column">
+            <div class="resizes-logo-wrapper" :class="{ 'dropdown-active': resizesDropdownOpen }" ref="resizesDropdownWrapper">
+              <button
+                @click="toggleResizesDropdown"
+                class="resizes-logo-link"
+                type="button"
+                :aria-expanded="resizesDropdownOpen"
+                :aria-label="t.aria.toggleResizesMenu"
+              >
+                <img
+                  :src="resizesLogo"
+                  alt="Resizes"
+                  class="resizes-logo"
+                />
+              </button>
+              <div
+                class="resizes-dropdown"
+                v-show="resizesDropdownOpen"
+              >
+                <a
+                  href="https://docs.resiz.es/dash-docs/intro/overview"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="dropdown-item dropdown-item-1"
+                >
+                  <span class="dropdown-icon">📚</span>
+                  <span class="dropdown-text">Docs</span>
+                </a>
+                <a
+                  href="https://github.com/resizes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="dropdown-item dropdown-item-2"
+                >
+                  <span class="dropdown-icon">🐙</span>
+                  <span class="dropdown-text">GitHub</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/resizes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="dropdown-item dropdown-item-3"
+                >
+                  <span class="dropdown-icon">💼</span>
+                  <span class="dropdown-text">LinkedIn</span>
+                </a>
+              </div>
+              </div>
+            <p class="section-subtitle">{{ t.resizes.subtitle }}</p>
+          </div>
+          <div class="chat-container chat-container-lg" ref="chatContainer">
+            <div
+              v-for="(msg, index) in chatMessages"
+              :key="index"
+              :class="['chat-bubble', msg.type, { 'chat-visible': visibleMessages > index }]"
             >
-              <img 
-                :src="resizesLogo" 
-                alt="Resizes" 
-                class="resizes-logo"
-              />
-            </button>
-            <div 
-              class="resizes-dropdown"
-              v-show="resizesDropdownOpen"
-            >
-              <a 
-                href="https://docs.resiz.es/dash-docs/intro/overview" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="dropdown-item dropdown-item-1"
-              >
-                <span class="dropdown-icon">📚</span>
-                <span class="dropdown-text">Docs</span>
-              </a>
-              <a 
-                href="https://github.com/resizes" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="dropdown-item dropdown-item-2"
-              >
-                <span class="dropdown-icon">🐙</span>
-                <span class="dropdown-text">GitHub</span>
-              </a>
-              <a 
-                href="https://www.linkedin.com/company/resizes" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="dropdown-item dropdown-item-3"
-              >
-                <span class="dropdown-icon">💼</span>
-                <span class="dropdown-text">LinkedIn</span>
-              </a>
+              <p class="chat-text">{{ msg.text }}</p>
+            </div>
+            <div v-if="chatTyping" class="chat-bubble question typing-indicator">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
             </div>
           </div>
-          <p class="section-subtitle">{{ t.resizes.subtitle }}</p>
         </div>
-      </div>
-      <div class="dash-container">
-        <a 
-          href="https://dash.resiz.es/" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="dash-logo-link"
-        >
-          <img 
-            :src="dashLogo" 
-            alt="Dash" 
-            class="dash-logo"
-          />
-        </a>
       </div>
       <Transition name="toast-slide">
         <a
           v-if="resizesNotificationVisible"
           href="mailto:hello@resiz.es"
           class="notification-content"
-          aria-label="Contact Resizes"
+          :aria-label="t.aria.contactResizes"
         >
           <img
             :src="notificationImage"
-            alt="Contact Resizes"
+            :alt="t.aria.contactResizes"
             class="notification-image"
           />
         </a>
       </Transition>
       <div class="image-content resizes-tube-image">
-        <img 
-          :src="tubeImage" 
-          alt="3D Character" 
+        <img
+          :src="tubeImage"
+          :alt="t.alt.character"
           class="character-image"
         />
+      </div>
+      <div class="resizes-bottom-tagline">
+        <p class="resizes-tagline-text">{{ t.resizes.description }}</p>
+      </div>
+      <button
+        v-if="hasNextSection('resizes')"
+        class="scroll-arrow-btn"
+        @click="scrollToNextSection"
+        :aria-label="t.aria.scrollNext"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- My Real Stack Section -->
+    <section id="my-stack" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title scroll-reveal">{{ t.myStack.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.myStack.subtitle }}</p>
+          <div class="radial-hero-wrapper scroll-reveal">
+            <svg :viewBox="radialViewBox" class="radial-hero" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background ring of ticks -->
+              <line
+                v-for="(tick, ti) in radialTicks" :key="'tick-' + ti"
+                :x1="tick.x1" :y1="tick.y1" :x2="tick.x2" :y2="tick.y2"
+                class="ring-tick"
+              />
+              <!-- Category arcs + labels -->
+              <g
+                v-for="cat in radialCats" :key="'cat-' + cat.catIndex"
+                @mouseenter="radialHovered = cat.catIndex"
+                @mouseleave="radialHovered = null"
+                style="cursor: pointer;"
+              >
+                <path
+                  :d="cat.arcPath"
+                  class="ring-cat-arc"
+                  :class="{ active: radialHovered === cat.catIndex, dimmed: radialHovered !== null && radialHovered !== cat.catIndex }"
+                />
+                <text
+                  :x="cat.labelX" :y="cat.labelY"
+                  text-anchor="middle"
+                  class="ring-cat-label"
+                  :class="{ active: radialHovered === cat.catIndex, dimmed: radialHovered !== null && radialHovered !== cat.catIndex }"
+                >{{ cat.name }}</text>
+              </g>
+              <!-- Stack items -->
+              <g
+                v-for="(node, ni) in radialNodes" :key="'node-' + ni"
+                class="ring-item"
+                :class="{ dimmed: radialHovered !== null && radialHovered !== node.catIndex }"
+                @mouseenter="radialHovered = node.catIndex"
+                @mouseleave="radialHovered = null"
+                style="cursor: pointer;"
+              >
+                <!-- Highlighted tick on the ring -->
+                <line
+                  :x1="node.x1" :y1="node.y1"
+                  :x2="node.x2" :y2="node.y2"
+                  class="ring-item-tick"
+                  :class="{ active: radialHovered === node.catIndex }"
+                />
+                <!-- Label card -->
+                <g :transform="`translate(${node.cardX}, ${node.cardY}) rotate(${node.tilt})`">
+                  <rect
+                    :x="-node.cardW / 2" :y="-node.cardH / 2"
+                    :width="node.cardW" :height="node.cardH"
+                    rx="10"
+                    class="ring-card"
+                    :class="{ active: radialHovered === node.catIndex }"
+                  />
+                  <text
+                    text-anchor="middle"
+                    dominant-baseline="central"
+                    y="1"
+                    class="ring-card-text"
+                  >{{ node.name }}</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <button
+        v-if="hasNextSection('my-stack')"
+        class="scroll-arrow-btn"
+        @click="scrollToNextSection"
+        :aria-label="t.aria.scrollNext"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- A Day as Full Stack Section -->
+    <section id="my-day" class="section content-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title scroll-reveal">{{ t.myDay.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.myDay.subtitle }}</p>
+          <div class="day-timeline">
+            <div class="day-timeline-line"></div>
+            <div
+              v-for="(item, index) in t.myDay.items"
+              :key="index"
+              class="day-item scroll-reveal"
+            >
+              <div class="day-time">{{ item.time }}</div>
+              <div class="day-marker"></div>
+              <div class="day-content">
+                <h3 class="day-title">{{ item.title }}</h3>
+                <p class="day-desc">{{ item.desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        v-if="hasNextSection('my-day')"
+        class="scroll-arrow-btn"
+        @click="scrollToNextSection"
+        :aria-label="t.aria.scrollNext"
+      >
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Closing Section -->
+    <section id="closing" class="section content-section closing-section">
+      <div class="ellipse-bg" aria-hidden="true">
+        <img :src="ellipseImage" alt="" class="ellipse-img" />
+      </div>
+      <div class="section-content">
+        <div class="text-content">
+          <h2 class="section-title scroll-reveal">{{ t.closing.title }}</h2>
+          <p class="section-subtitle scroll-reveal">{{ t.closing.subtitle }}</p>
+          <p class="closing-message scroll-reveal">{{ t.closing.message }}</p>
+          <div class="closing-links scroll-reveal">
+            <a
+              href="https://www.linkedin.com/in/albegosu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="closing-link"
+            >
+              <span class="closing-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </span>
+              {{ t.closing.linkedin }}
+            </a>
+            <a
+              href="mailto:alberto@resiz.es"
+              class="closing-link"
+            >
+              <span class="closing-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </span>
+              {{ t.closing.email }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="closing-footer">
+        <span class="closing-name">Alberto González</span>
+        <span class="closing-separator">/</span>
+        <span class="closing-role">{{ t.whoIAm.profileTitle }}</span>
       </div>
     </section>
   </div>
@@ -548,7 +734,7 @@ const currentLanguage = ref('en')
 const translations = {
   en: {
     masterclass: {
-      subtitle: 'How to survive Kit'
+      subtitle: 'Survival Kit'
     },
     whoIAm: {
       title: 'Who I am',
@@ -558,7 +744,8 @@ const translations = {
         industrialDesign: 'Industrial Design',
         masterFullStack: 'Master Full Stack',
         bootcampFullStack: 'Bootcamp Full Stack',
-        trialAndError: 'Trial and Error'
+        trialAndError: 'Trial and Error',
+        life: 'Life'
       }
     },
     whereWorked: {
@@ -579,7 +766,7 @@ const translations = {
     },
     whenStudied: {
       title: 'When I Studied the UNIR Master',
-      subtitle: 'Keypoints of my experience',
+      subtitle: 'Key points of my experience',
       faculty: 'Expert Faculty',
       content: 'Educational Content',
       support: 'Support'
@@ -611,7 +798,7 @@ const translations = {
       }
     },
     firstJob: {
-      title: 'My First new Job',
+      title: 'My First Job',
       subtitle: 'The beginning of my new career',
       doors: {
         title: '100 Doors',
@@ -642,8 +829,37 @@ const translations = {
         text: 'Most tech jobs involve working with others. Being collaborative, respectful, and supportive of your teammates matters more than having all the technical answers. Show that you can contribute to a team environment, even as you\'re learning.'
       }
     },
+    myStack: {
+      title: 'My Real Stack',
+      subtitle: 'What I actually use every day',
+      frontend: 'Frontend',
+      backend: 'Backend',
+      tools: 'Tools',
+      ai: 'AI & Productivity'
+    },
+    myDay: {
+      title: 'A Day as Full Stack',
+      subtitle: 'What a typical workday looks like',
+      items: [
+        { time: '9:00', title: 'Stand-up & Planning', desc: 'Quick sync with the team: what we did, what we\'ll do, and blockers.' },
+        { time: '10:00', title: 'Build & Code', desc: 'Deep work time. Frontend features, API endpoints, database queries — the core of the day.' },
+        { time: '13:00', title: 'Code Review', desc: 'Reviewing PRs, discussing approaches, learning from teammates\' code.' },
+        { time: '14:00', title: 'Lunch & Learning', desc: 'Recharge and explore — articles, videos, side experiments.' },
+        { time: '15:30', title: 'Testing & Debugging', desc: 'Write tests, fix bugs, and ensure everything works before shipping.' },
+        { time: '17:00', title: 'Deploy & Docs', desc: 'Ship to production, update documentation, and plan tomorrow.' }
+      ]
+    },
     resizes: {
-      subtitle: 'My place'
+      subtitle: 'My place',
+      description: 'A tech company building tools that help developers and teams work smarter.',
+      chat: [
+        { type: 'question', text: 'What do you do at Resizes?' },
+        { type: 'answer', text: 'I build Dash — a platform that helps dev teams streamline their workflows. I work across the full stack, from Vue 3 frontends to Node.js APIs.' },
+        { type: 'question', text: 'How\'s the team?' },
+        { type: 'answer', text: 'Small, focused, and very autonomous. We move fast, ship often, and everyone has real ownership over what they build.' },
+        { type: 'question', text: 'What tech do you use?' },
+        { type: 'answer', text: 'Vue 3 + Nuxt on the frontend, Node.js + PostgreSQL on the backend. We use Claude and Cursor daily — AI is part of the workflow, not a gimmick.' }
+      ]
     },
     nav: {
       masterclass: 'Masterclass',
@@ -654,10 +870,27 @@ const translations = {
       masterVsBootcamp: 'Master vs. Bootcamp',
       firstJob: 'New Job',
       softSkills: 'Soft Skills',
-      resizes: 'Resizes'
+      myStack: 'My Stack',
+      myDay: 'My Day',
+      resizes: 'Resizes',
+      closing: 'Thank you'
+    },
+    closing: {
+      title: 'Thank you',
+      subtitle: 'Let\'s keep in touch',
+      message: 'If you have any questions or just want to connect, don\'t hesitate to reach out.',
+      linkedin: 'Connect on LinkedIn',
+      email: 'Send me an email'
     },
     aria: {
-      scrollNext: 'Scroll to next section'
+      scrollNext: 'Scroll to next section',
+      toggleLanguage: 'Toggle language',
+      toggleResizesMenu: 'Toggle Resizes menu',
+      contactResizes: 'Contact Resizes'
+    },
+    alt: {
+      character: '3D Character',
+      platonic: 'Platonic Dodecahedron'
     }
   },
   es: {
@@ -672,7 +905,8 @@ const translations = {
         industrialDesign: 'Diseño Industrial',
         masterFullStack: 'Máster Full Stack',
         bootcampFullStack: 'Bootcamp Full Stack',
-        trialAndError: 'Prueba y error'
+        trialAndError: 'Prueba y error',
+        life: 'La vida'
       }
     },
     whereWorked: {
@@ -693,7 +927,7 @@ const translations = {
     },
     whenStudied: {
       title: 'Cuándo estudié el Máster de UNIR',
-      subtitle: 'Los puntos más importantes para mi',
+      subtitle: 'Los puntos más importantes para mí',
       faculty: 'Profesorado experto',
       content: 'Contenido educativo',
       support: 'Apoyo'
@@ -715,7 +949,7 @@ const translations = {
       bootcamp: {
         title: 'Bootcamp',
         collaboration: {
-          title: 'Trabajo colaborativo mejorado',
+          title: 'Más trabajo colaborativo',
           text: 'Hay un mayor énfasis en el trabajo colaborativo, con más proyectos grupales que realmente impulsan el trabajo en equipo y el aprendizaje entre pares.'
         },
         github: {
@@ -756,22 +990,68 @@ const translations = {
         text: 'La mayoría de los trabajos tecnológicos implican trabajar con otros. Ser colaborativo, respetuoso y solidario con tus compañeros de equipo importa más que tener todas las respuestas técnicas. Demuestra que puedes contribuir a un ambiente de equipo, incluso mientras estás aprendiendo.'
       }
     },
+    myStack: {
+      title: 'Mi Stack Real',
+      subtitle: 'Lo que uso de verdad cada día',
+      frontend: 'Frontend',
+      backend: 'Backend',
+      tools: 'Herramientas',
+      ai: 'IA y Productividad'
+    },
+    myDay: {
+      title: 'Un día como Full Stack',
+      subtitle: 'Cómo es un día típico de trabajo',
+      items: [
+        { time: '9:00', title: 'Stand-up y Planificación', desc: 'Sincronización rápida con el equipo: qué hicimos, qué haremos y bloqueos.' },
+        { time: '10:00', title: 'Construir y Programar', desc: 'Tiempo de trabajo profundo. Features de frontend, endpoints de API, consultas a base de datos — el núcleo del día.' },
+        { time: '13:00', title: 'Code Review', desc: 'Revisando PRs, discutiendo enfoques, aprendiendo del código de los compañeros.' },
+        { time: '14:00', title: 'Comida y Aprendizaje', desc: 'Recargar y explorar — artículos, vídeos, experimentos propios.' },
+        { time: '15:30', title: 'Testing y Debugging', desc: 'Escribir tests, arreglar bugs y asegurar que todo funciona antes de desplegar.' },
+        { time: '17:00', title: 'Deploy y Documentación', desc: 'Desplegar a producción, actualizar documentación y planificar el día siguiente.' }
+      ]
+    },
     resizes: {
-      subtitle: 'Mi lugar'
+      subtitle: 'Mi lugar',
+      description: 'Una empresa tech que construye herramientas para que desarrolladores y equipos trabajen mejor.',
+      chat: [
+        { type: 'question', text: '¿Qué haces en Resizes?' },
+        { type: 'answer', text: 'Construyo Dash — una plataforma que ayuda a equipos de desarrollo a optimizar sus flujos de trabajo. Trabajo en todo el stack, desde frontends con Vue 3 hasta APIs con Node.js.' },
+        { type: 'question', text: '¿Cómo es el equipo?' },
+        { type: 'answer', text: 'Pequeño, enfocado y muy autónomo. Nos movemos rápido, desplegamos a menudo y cada uno tiene responsabilidad real sobre lo que construye.' },
+        { type: 'question', text: '¿Qué tecnología usáis?' },
+        { type: 'answer', text: 'Vue 3 + Nuxt en el frontend, Node.js + PostgreSQL en el backend. Usamos Claude y Cursor a diario — la IA es parte del flujo de trabajo, no un adorno.' }
+      ]
     },
     nav: {
       masterclass: 'Masterclass',
       whoIAm: 'Quién soy',
       whereWorked: 'Dónde he trabajado',
       whyStudied: '¿Por qué?',
-      whenStudied: '¿Cuándo estudié?',
+      whenStudied: 'Cuándo estudié',
       masterVsBootcamp: 'Máster vs. Bootcamp',
       firstJob: 'Nuevo trabajo',
       softSkills: 'Habilidades blandas',
-      resizes: 'Resizes'
+      myStack: 'Mi Stack',
+      myDay: 'Mi día',
+      resizes: 'Resizes',
+      closing: 'Gracias'
+    },
+    closing: {
+      title: 'Gracias',
+      subtitle: 'Mantengamos el contacto',
+      message: 'Si tienes alguna pregunta o simplemente quieres conectar, no dudes en escribirme.',
+      linkedin: 'Conecta en LinkedIn',
+      email: 'Envíame un email'
     },
     aria: {
-      scrollNext: 'Desplazarse a la siguiente sección'
+      scrollNext: 'Desplazarse a la siguiente sección',
+      toggleLanguage: 'Cambiar idioma',
+      toggleResizesMenu: 'Abrir el menú de Resizes',
+      contactResizes: 'Contactar con Resizes'
+    },
+    alt: {
+      character: 'Personaje 3D',
+      platonic: 'Dodecaedro platónico'
     }
   }
 }
@@ -784,24 +1064,29 @@ const toggleLanguage = () => {
   currentLanguage.value = currentLanguage.value === 'en' ? 'es' : 'en'
 }
 
+// Keep <html lang> in sync with the selected language
+watch(currentLanguage, (lang) => {
+  document.documentElement.lang = lang
+}, { immediate: true })
+
 // Computed work experience with translations
 const workExperience = computed(() => [
   {
     position: currentLanguage.value === 'en' ? 'Sales Advisor' : 'Asesor de ventas',
     company: 'H&M, PULL&BEAR, Stradivarius, Decathlon',
-    location: currentLanguage.value === 'en' ? 'Madrid, Gijón, Avilés. Spain' : 'Madrid, Gijón, Avilés y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Gijón, Avilés, Spain' : 'Madrid, Gijón, Avilés, España',
     year: '2012 - 2017'
   },
   {
     position: currentLanguage.value === 'en' ? 'Industrial Designer' : 'Diseñador Industrial',
     company: 'enPieza eStudio',
-    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid, España',
     year: '2016 - 2017'
   },
   {
     position: currentLanguage.value === 'en' ? 'Senior CAD Specialist' : 'Especialista CAD Senior',
     company: 'Align Technology',
-    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid y alrededores',
+    location: currentLanguage.value === 'en' ? 'Madrid, Spain' : 'Madrid, España',
     year: '2018 - 2022'
   },
   {
@@ -821,6 +1106,12 @@ const workExperience = computed(() => [
     company: 'Resizes',
     location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
     year: '2025'
+  },
+  {
+    position: currentLanguage.value === 'en' ? 'Product Engineer' : 'Product Engineer',
+    company: 'Resizes',
+    location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
+    year: '2026 - Present'
   }
 ])
 
@@ -833,7 +1124,10 @@ const sections = computed(() => [
   { id: 'master-vs-bootcamp', label: t.value.nav.masterVsBootcamp },
   { id: 'first-job', label: t.value.nav.firstJob },
   { id: 'soft-skills', label: t.value.nav.softSkills },
-  { id: 'resizes', label: t.value.nav.resizes }
+  { id: 'resizes', label: t.value.nav.resizes },
+  { id: 'my-stack', label: t.value.nav.myStack },
+  { id: 'my-day', label: t.value.nav.myDay },
+  { id: 'closing', label: t.value.nav.closing }
 ])
 
 const activeSection = ref('masterclass')
@@ -926,10 +1220,400 @@ const handleScroll = () => {
   })
 }
 
+// ── Radial stack timeline state ──
+const radialHovered = ref(null)
+
+const radialData = computed(() => {
+  const cx = 350, cy = 350
+  const R = 250
+  const categories = [
+    { name: t.value.myStack.ai, items: ['Claude', 'Copilot', 'Claude Code', 'Cursor'] },
+    { name: t.value.myStack.frontend, items: ['Vue 3', 'Nuxt', 'React', 'Vite', 'Tailwind'] },
+    { name: t.value.myStack.backend, items: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'TypeScript'] },
+    { name: t.value.myStack.tools, items: ['Git', 'GitHub Actions', 'Docker', 'VS Code'] }
+  ]
+
+  const toXY = (angleDeg, radius) => {
+    const a = (angleDeg * Math.PI) / 180
+    return { x: cx + radius * Math.cos(a), y: cy + radius * Math.sin(a) }
+  }
+
+  const ticks = []
+  const TICK_COUNT = 96
+  for (let i = 0; i < TICK_COUNT; i++) {
+    const deg = (i / TICK_COUNT) * 360
+    const p1 = toXY(deg, R)
+    const p2 = toXY(deg, R + 16)
+    ticks.push({ x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y })
+  }
+
+  // Each category owns a contiguous arc, sized by item count, with gaps between groups
+  const gapDeg = 16
+  const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0)
+  const slotDeg = (360 - gapDeg * categories.length) / totalItems
+
+  const nodes = []
+  const cats = []
+  let cursor = -90 + gapDeg / 2
+
+  categories.forEach((cat, ci) => {
+    const arcStart = cursor
+    const arcEnd = cursor + slotDeg * cat.items.length
+    const midDeg = (arcStart + arcEnd) / 2
+
+    const arcR = R - 26
+    const a1 = toXY(arcStart + 2, arcR)
+    const a2 = toXY(arcEnd - 2, arcR)
+    const labelPos = toXY(midDeg, R - 66)
+    cats.push({
+      name: cat.name,
+      catIndex: ci,
+      arcPath: `M ${a1.x} ${a1.y} A ${arcR} ${arcR} 0 0 1 ${a2.x} ${a2.y}`,
+      labelX: labelPos.x,
+      labelY: labelPos.y
+    })
+
+    cat.items.forEach((name, ii) => {
+      const deg = arcStart + slotDeg * (ii + 0.5)
+      const idx = nodes.length
+      const p1 = toXY(deg, R - 4)
+      const p2 = toXY(deg, R + 20)
+      const cardPos = toXY(deg, R + 62 + (idx % 2) * 32)
+      nodes.push({
+        name,
+        catIndex: ci,
+        x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y,
+        cardX: cardPos.x, cardY: cardPos.y,
+        cardW: Math.max(name.length * 8 + 26, 64),
+        cardH: 32,
+        tilt: ((idx * 47) % 13) - 6
+      })
+    })
+
+    cursor = arcEnd + gapDeg
+  })
+
+  return { ticks, nodes, cats }
+})
+
+const radialTicks = computed(() => radialData.value.ticks)
+const radialNodes = computed(() => radialData.value.nodes)
+const radialCats = computed(() => radialData.value.cats)
+const radialViewBox = computed(() => {
+  const nodes = radialData.value.nodes
+  if (!nodes.length) return '0 0 700 700'
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
+  nodes.forEach(n => {
+    const half = n.cardW / 2 + 14
+    minX = Math.min(minX, n.cardX - half)
+    minY = Math.min(minY, n.cardY - 32)
+    maxX = Math.max(maxX, n.cardX + half)
+    maxY = Math.max(maxY, n.cardY + 32)
+  })
+  minX = Math.min(minX, 50)
+  minY = Math.min(minY, 50)
+  maxX = Math.max(maxX, 650)
+  maxY = Math.max(maxY, 650)
+  return `${minX} ${minY} ${maxX - minX} ${maxY - minY}`
+})
+
+// ── Chatbox state ──
+const chatContainer = ref(null)
+const visibleMessages = ref(0)
+const chatTyping = ref(false)
+let chatTimeouts = []
+let chatObserver = null
+
+const chatMessages = computed(() => t.value.resizes.chat || [])
+
+const startChatSequence = () => {
+  visibleMessages.value = 0
+  chatTyping.value = false
+  chatTimeouts.forEach(clearTimeout)
+  chatTimeouts = []
+
+  const msgs = chatMessages.value
+  msgs.forEach((msg, index) => {
+    const typingDelay = index * 1800
+    chatTimeouts.push(setTimeout(() => { chatTyping.value = true }, typingDelay))
+    chatTimeouts.push(setTimeout(() => {
+      chatTyping.value = false
+      visibleMessages.value = index + 1
+    }, typingDelay + 800))
+  })
+}
+
+// ── Generative canvas (Simplex noise particle mesh) ──
+// Fixed to the viewport so the mesh lives behind every section; scroll
+// shifts the noise field and adds parallax so it feels continuous.
+const noiseCanvas = ref(null)
+let animationFrameId = null
+let canvasCtx = null
+let particles = []
+const PARTICLE_COUNT = 110
+const CONNECTION_DIST = 160
+const NOISE_SCALE = 0.003
+const NOISE_SPEED = 0.0005
+const WRAP_MARGIN = 30
+const POINTER_RADIUS = 140
+let noiseTime = 0
+let viewW = 0
+let viewH = 0
+let lastScrollY = 0
+const pointer = { x: -9999, y: -9999, active: false }
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+const simplexNoise2D = (() => {
+  const perm = new Uint8Array(512)
+  const grad = [[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]]
+  for (let i = 0; i < 256; i++) perm[i] = i
+  for (let i = 255; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [perm[i], perm[j]] = [perm[j], perm[i]]
+  }
+  for (let i = 0; i < 256; i++) perm[i + 256] = perm[i]
+  const F2 = 0.5 * (Math.sqrt(3) - 1)
+  const G2 = (3 - Math.sqrt(3)) / 6
+
+  return (xin, yin) => {
+    const s = (xin + yin) * F2
+    const i = Math.floor(xin + s), j = Math.floor(yin + s)
+    const tt = (i + j) * G2
+    const X0 = i - tt, Y0 = j - tt
+    const x0 = xin - X0, y0 = yin - Y0
+    const i1 = x0 > y0 ? 1 : 0, j1 = x0 > y0 ? 0 : 1
+    const x1 = x0 - i1 + G2, y1 = y0 - j1 + G2
+    const x2 = x0 - 1 + 2 * G2, y2 = y0 - 1 + 2 * G2
+    const ii = i & 255, jj = j & 255
+
+    const dot = (gi, x, y) => {
+      const g = grad[gi % 8]
+      return g[0] * x + g[1] * y
+    }
+
+    let n0 = 0, n1 = 0, n2 = 0
+    let t0 = 0.5 - x0 * x0 - y0 * y0
+    if (t0 > 0) { t0 *= t0; n0 = t0 * t0 * dot(perm[ii + perm[jj]], x0, y0) }
+    let t1 = 0.5 - x1 * x1 - y1 * y1
+    if (t1 > 0) { t1 *= t1; n1 = t1 * t1 * dot(perm[ii + i1 + perm[jj + j1]], x1, y1) }
+    let t2 = 0.5 - x2 * x2 - y2 * y2
+    if (t2 > 0) { t2 *= t2; n2 = t2 * t2 * dot(perm[ii + 1 + perm[jj + 1]], x2, y2) }
+    return 70 * (n0 + n1 + n2)
+  }
+})()
+
+const resizeCanvas = () => {
+  const canvas = noiseCanvas.value
+  if (!canvas) return
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+  viewW = window.innerWidth
+  viewH = window.innerHeight
+  canvas.width = viewW * dpr
+  canvas.height = viewH * dpr
+  if (canvasCtx) canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
+}
+
+const seedParticles = () => {
+  particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+    x: Math.random() * viewW,
+    y: Math.random() * viewH,
+    r: 1.2 + Math.random() * 1.6,
+    depth: 0.4 + Math.random() * 0.6
+  }))
+}
+
+const initCanvas = () => {
+  const canvas = noiseCanvas.value
+  if (!canvas || window.innerWidth <= 768) {
+    if (canvas) canvas.style.display = 'none'
+    return
+  }
+  canvasCtx = canvas.getContext('2d')
+  resizeCanvas()
+  seedParticles()
+  lastScrollY = window.scrollY
+  if (prefersReducedMotion) {
+    drawCanvasFrame()
+  } else {
+    animateCanvas()
+  }
+}
+
+const drawCanvasFrame = () => {
+  const ctx = canvasCtx
+  if (!ctx) return
+
+  const scrollY = window.scrollY
+  const scrollDelta = scrollY - lastScrollY
+  lastScrollY = scrollY
+
+  ctx.clearRect(0, 0, viewW, viewH)
+  noiseTime += NOISE_SPEED
+  const scrollFactor = scrollY * 0.0004
+
+  particles.forEach(p => {
+    const angle = simplexNoise2D(p.x * NOISE_SCALE + scrollFactor, p.y * NOISE_SCALE + noiseTime) * Math.PI * 2
+    p.x += Math.cos(angle) * 0.5 * p.depth
+    p.y += Math.sin(angle) * 0.5 * p.depth
+    p.y -= scrollDelta * 0.12 * p.depth
+
+    if (pointer.active) {
+      const pdx = p.x - pointer.x
+      const pdy = p.y - pointer.y
+      const d2 = pdx * pdx + pdy * pdy
+      if (d2 < POINTER_RADIUS * POINTER_RADIUS && d2 > 0.01) {
+        const d = Math.sqrt(d2)
+        const force = (1 - d / POINTER_RADIUS) * 1.2
+        p.x += (pdx / d) * force
+        p.y += (pdy / d) * force
+      }
+    }
+
+    if (p.x < -WRAP_MARGIN) p.x = viewW + WRAP_MARGIN
+    if (p.x > viewW + WRAP_MARGIN) p.x = -WRAP_MARGIN
+    if (p.y < -WRAP_MARGIN) p.y = viewH + WRAP_MARGIN
+    if (p.y > viewH + WRAP_MARGIN) p.y = -WRAP_MARGIN
+  })
+
+  const neighbors = particles.map(() => [])
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x
+      const dy = particles[i].y - particles[j].y
+      const dist = Math.sqrt(dx * dx + dy * dy)
+      if (dist < CONNECTION_DIST) {
+        neighbors[i].push(j)
+        // Gentle separation so the flow field doesn't collapse into dense clumps
+        if (dist > 0.01 && dist < 32) {
+          const push = (1 - dist / 32) * 0.35
+          const ux = dx / dist, uy = dy / dist
+          particles[i].x += ux * push
+          particles[i].y += uy * push
+          particles[j].x -= ux * push
+          particles[j].y -= uy * push
+        }
+        const alpha = (1 - dist / CONNECTION_DIST) * 0.16
+        ctx.strokeStyle = `rgba(26, 26, 46, ${alpha})`
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.moveTo(particles[i].x, particles[i].y)
+        ctx.lineTo(particles[j].x, particles[j].y)
+        ctx.stroke()
+      }
+    }
+  }
+
+  // Fill triangles between mutually-close particles for a subtle geometric wash.
+  // Cap neighbors per particle so dense clusters don't stack fills into dark blobs.
+  ctx.fillStyle = 'rgba(26, 26, 46, 0.012)'
+  for (let i = 0; i < particles.length; i++) {
+    const ns = neighbors[i]
+    const limit = Math.min(ns.length, 4)
+    for (let a = 0; a < limit; a++) {
+      for (let b = a + 1; b < limit; b++) {
+        const j = ns[a], k = ns[b]
+        const dx = particles[j].x - particles[k].x
+        const dy = particles[j].y - particles[k].y
+        if (dx * dx + dy * dy < CONNECTION_DIST * CONNECTION_DIST) {
+          ctx.beginPath()
+          ctx.moveTo(particles[i].x, particles[i].y)
+          ctx.lineTo(particles[j].x, particles[j].y)
+          ctx.lineTo(particles[k].x, particles[k].y)
+          ctx.closePath()
+          ctx.fill()
+        }
+      }
+    }
+  }
+
+  particles.forEach(p => {
+    ctx.fillStyle = `rgba(26, 26, 46, ${0.15 + p.depth * 0.15})`
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+    ctx.fill()
+  })
+}
+
+const animateCanvas = () => {
+  drawCanvasFrame()
+  animationFrameId = requestAnimationFrame(animateCanvas)
+}
+
+const handlePointerMove = (e) => {
+  pointer.x = e.clientX
+  pointer.y = e.clientY
+  pointer.active = true
+}
+
+const handlePointerLeave = () => {
+  pointer.active = false
+}
+
+let canvasResizeTimeout = null
+const handleCanvasResize = () => {
+  clearTimeout(canvasResizeTimeout)
+  canvasResizeTimeout = setTimeout(() => {
+    if (window.innerWidth <= 768) {
+      if (noiseCanvas.value) noiseCanvas.value.style.display = 'none'
+      if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      animationFrameId = null
+      return
+    }
+    if (noiseCanvas.value) noiseCanvas.value.style.display = 'block'
+    if (!canvasCtx && noiseCanvas.value) canvasCtx = noiseCanvas.value.getContext('2d')
+    resizeCanvas()
+    seedParticles()
+    if (prefersReducedMotion) {
+      drawCanvasFrame()
+    } else if (!animationFrameId) {
+      animateCanvas()
+    }
+  }, 200)
+}
+
+let scrollRevealObserver = null
+
+const initScrollReveal = () => {
+  scrollRevealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed')
+        scrollRevealObserver.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' })
+
+  document.querySelectorAll('.scroll-reveal').forEach((el) => {
+    scrollRevealObserver.observe(el)
+  })
+}
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
-  handleScroll() // Initial check
+  handleScroll()
   document.addEventListener('click', handleClickOutside)
+  setTimeout(initScrollReveal, 100)
+
+  initCanvas()
+  window.addEventListener('resize', handleCanvasResize)
+  window.addEventListener('pointermove', handlePointerMove, { passive: true })
+  document.documentElement.addEventListener('pointerleave', handlePointerLeave)
+
+  setTimeout(() => {
+    if (chatContainer.value) {
+      chatObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startChatSequence()
+            chatObserver.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.3 })
+      chatObserver.observe(chatContainer.value)
+    }
+  }, 200)
 })
 
 watch(activeSection, (newSection) => {
@@ -953,12 +1637,15 @@ watch(activeSection, (newSection) => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   document.removeEventListener('click', handleClickOutside)
-  if (chronometerInterval) {
-    clearInterval(chronometerInterval)
-  }
-  if (resizesNotificationTimeout) {
-    clearTimeout(resizesNotificationTimeout)
-  }
+  window.removeEventListener('resize', handleCanvasResize)
+  window.removeEventListener('pointermove', handlePointerMove)
+  document.documentElement.removeEventListener('pointerleave', handlePointerLeave)
+  if (chronometerInterval) clearInterval(chronometerInterval)
+  if (resizesNotificationTimeout) clearTimeout(resizesNotificationTimeout)
+  if (scrollRevealObserver) scrollRevealObserver.disconnect()
+  if (animationFrameId) cancelAnimationFrame(animationFrameId)
+  if (chatObserver) chatObserver.disconnect()
+  chatTimeouts.forEach(clearTimeout)
 })
 </script>
 
@@ -966,7 +1653,7 @@ onUnmounted(() => {
 .landing-page {
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
-  background: whitesmoke;
+  background: #ebebeb;
   position: relative;
   font-family: 'Switzer', sans-serif;
   overflow-x: hidden;
@@ -1112,7 +1799,7 @@ onUnmounted(() => {
 
 /* Masterclass Section */
 .masterclass-section {
-  background: whitesmoke;
+  background: #ebebeb;
   position: relative;
 }
 
@@ -1246,7 +1933,7 @@ onUnmounted(() => {
 
 /* Who I am Section */
 .who-i-am-section {
-  background: whitesmoke;
+  background: #ebebeb;
 }
 
 .who-i-am-section .section-content {
@@ -1257,7 +1944,7 @@ onUnmounted(() => {
 
 /* Content Sections */
 .content-section {
-  background: whitesmoke;
+  background: #ebebeb;
 }
 
 .content-section .section-content {
@@ -1296,7 +1983,7 @@ onUnmounted(() => {
 
 /* When I studied Section */
 .when-studied-section {
-  background: whitesmoke;
+  background: #ebebeb;
   position: relative;
 }
 
@@ -2061,7 +2748,6 @@ onUnmounted(() => {
 
 /* Resizes Section */
 .resizes-section {
-  background: whitesmoke;
   position: relative;
 }
 
@@ -3034,5 +3720,704 @@ onUnmounted(() => {
   .chronometer-display {
     font-size: 0.9rem;
   }
+}
+
+/* Scroll Reveal Animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal:nth-child(2) { transition-delay: 0.08s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.16s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.24s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.32s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.40s; }
+
+/* My Stack Section */
+.stack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  max-width: 900px;
+}
+
+.stack-category {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.stack-category:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.stack-category-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.stack-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.stack-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.stack-item:hover {
+  background: rgba(26, 26, 46, 0.04);
+}
+
+.stack-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: #1a1a2e;
+  opacity: 0.7;
+}
+
+.stack-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* A Day as Full Stack Section */
+.day-timeline {
+  position: relative;
+  margin-top: 2rem;
+  max-width: 700px;
+  padding-left: 1rem;
+}
+
+.day-timeline-line {
+  position: absolute;
+  left: 85px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #1a1a2e, #d3d3d3);
+}
+
+.day-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.day-item:last-child {
+  margin-bottom: 0;
+}
+
+.day-time {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  min-width: 60px;
+  text-align: right;
+  padding-top: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.day-marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 3px solid whitesmoke;
+  box-shadow: 0 0 0 2px #1a1a2e;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.day-item:hover .day-marker {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px #1a1a2e, 0 0 12px rgba(26, 26, 46, 0.2);
+}
+
+.day-content {
+  flex: 1;
+}
+
+.day-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.3;
+}
+
+.day-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* Resizes About */
+.resizes-about {
+  margin-top: 1.5rem;
+  max-width: 500px;
+  text-align: center;
+}
+
+.resizes-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin: 0 0 0.75rem 0;
+}
+
+.resizes-product {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #777;
+  margin: 0;
+}
+
+/* Responsive: My Stack */
+@media (max-width: 768px) {
+  .stack-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stack-category {
+    padding: 1.25rem;
+  }
+
+  .stack-items {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .stack-item {
+    font-size: 0.9rem;
+  }
+
+  .stack-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stack-items {
+    grid-template-columns: 1fr;
+  }
+
+  .stack-category-title {
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive: My Day */
+@media (max-width: 768px) {
+  .day-timeline {
+    padding-left: 0;
+  }
+
+  .day-timeline-line {
+    left: 65px;
+  }
+
+  .day-time {
+    font-size: 0.9rem;
+    min-width: 50px;
+  }
+
+  .day-title {
+    font-size: 1.05rem;
+  }
+
+  .day-desc {
+    font-size: 0.9rem;
+  }
+
+  .day-item {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .day-timeline-line {
+    left: 55px;
+  }
+
+  .day-time {
+    font-size: 0.85rem;
+    min-width: 45px;
+  }
+
+  .day-title {
+    font-size: 1rem;
+  }
+
+  .day-desc {
+    font-size: 0.85rem;
+  }
+
+  .day-marker {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Responsive: Resizes About */
+@media (max-width: 768px) {
+  .resizes-about {
+    max-width: 100%;
+  }
+
+  .resizes-description {
+    font-size: 0.95rem;
+  }
+
+  .resizes-product {
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Generative Canvas Background ── */
+.generative-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section {
+  z-index: 1;
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .generative-bg {
+    display: none;
+  }
+}
+
+/* ── Radar Chart ── */
+.stack-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-top: 2rem;
+  max-width: 1100px;
+}
+
+/* Radial Hero */
+#my-stack .text-content {
+  max-width: 900px;
+  width: 100%;
+}
+
+.radial-hero-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  max-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radial-hero {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+}
+
+.ring-tick {
+  stroke: #1a1a2e;
+  stroke-opacity: 0.16;
+  stroke-width: 1.2;
+}
+
+.ring-cat-arc {
+  stroke: #1a1a2e;
+  stroke-opacity: 0.18;
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+}
+
+.ring-cat-arc.active {
+  stroke: #e8590c;
+  stroke-opacity: 0.9;
+  stroke-width: 2.5;
+}
+
+.ring-cat-arc.dimmed {
+  stroke-opacity: 0.08;
+}
+
+.ring-cat-label {
+  font-size: 12px;
+  fill: #1a1a2e;
+  fill-opacity: 0.55;
+  font-family: 'Switzer', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: fill 0.3s ease, fill-opacity 0.3s ease;
+}
+
+.ring-cat-label.active {
+  fill: #e8590c;
+  fill-opacity: 1;
+}
+
+.ring-cat-label.dimmed {
+  fill-opacity: 0.2;
+}
+
+.ring-item {
+  transition: opacity 0.3s ease;
+}
+
+.ring-item.dimmed {
+  opacity: 0.25;
+}
+
+.ring-item-tick {
+  stroke: #e8590c;
+  stroke-width: 7;
+  stroke-linecap: round;
+  transition: stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ring-item-tick.active {
+  stroke-width: 10;
+}
+
+.ring-card {
+  fill: #fdfaf5;
+  stroke: #e8590c;
+  stroke-width: 1.25;
+  transition: fill 0.3s ease, stroke-width 0.3s ease;
+}
+
+.ring-card.active {
+  fill: #fdf0e6;
+  stroke-width: 2;
+}
+
+.ring-card-text {
+  font-size: 13px;
+  fill: #1a1a2e;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .radial-hero-wrapper {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .radial-hero-wrapper {
+    max-width: 320px;
+  }
+}
+
+/* ── Chatbox ── */
+.chat-container {
+  max-width: 520px;
+  margin: 2.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 2;
+  position: relative;
+}
+
+.chat-bubble {
+  max-width: 82%;
+  padding: 0.8rem 1.1rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.chat-bubble.chat-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chat-bubble.question {
+  align-self: flex-start;
+  background: rgba(26, 26, 46, 0.05);
+  color: #666;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble.answer {
+  align-self: flex-end;
+  background: rgba(26, 26, 46, 0.1);
+  color: #1a1a2e;
+  border-bottom-right-radius: 4px;
+  font-weight: 500;
+}
+
+.chat-text {
+  margin: 0;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.8rem 1.1rem;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #999;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+
+  .chat-bubble {
+    max-width: 88%;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-bubble {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Resizes Redesigned Layout */
+.resizes-redesigned {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  padding-bottom: 10vh;
+}
+
+.resizes-main-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.resizes-left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.resizes-left-column .section-subtitle {
+  margin-bottom: 0;
+}
+
+.chat-container-lg {
+  max-width: 520px;
+  width: 100%;
+  margin-top: 0;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.chat-container-lg .chat-bubble {
+  padding: 1rem 1.4rem;
+  font-size: 1.05rem;
+}
+
+.chat-container-lg .chat-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.resizes-bottom-tagline {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: min(1400px, 100vw);
+  padding: 0 40px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 2;
+}
+
+.resizes-tagline-text {
+  font-size: 0.95rem;
+  color: #777;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Closing Section */
+.closing-message {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin: 0 0 2rem 0;
+  max-width: 600px;
+}
+
+.closing-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 400px;
+}
+
+.closing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0;
+  color: #1a1a2e;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(26, 26, 46, 0.1);
+  transition: border-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.closing-link:hover {
+  border-color: rgba(26, 26, 46, 0.5);
+  padding-left: 0.5rem;
+}
+
+.closing-link-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.closing-link-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.closing-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(26, 26, 46, 0.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.closing-separator {
+  opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+  .resizes-main-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .chat-container-lg {
+    margin-top: 1.5rem;
+    max-height: 50vh;
+  }
+
+  .chat-container-lg .chat-bubble {
+    padding: 0.85rem 1.1rem;
+    font-size: 0.95rem;
+  }
+
+  .chat-container-lg .chat-text {
+    font-size: 0.95rem;
+  }
+
+  .resizes-bottom-tagline {
+    bottom: 20px;
+    padding: 0 20px;
+  }
+
+  .resizes-tagline-text {
+    white-space: normal;
+    font-size: 0.85rem;
+  }
+
 }
 </style>
