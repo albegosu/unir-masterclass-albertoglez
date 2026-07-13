@@ -55,13 +55,13 @@
           <p class="subtitle">{{ t.masterclass.subtitle }}</p>
         </div>
       </div>
-      <div class="image-content">
+      <!-- <div class="image-content">
         <img 
           :src="characterImage" 
           :alt="t.alt.character"
           class="character-image"
         />
-      </div>
+      </div> -->
       <button 
         v-if="hasNextSection('masterclass')"
         class="scroll-arrow-btn" 
@@ -249,13 +249,13 @@
 
     <!-- When I studied UNIR Master Section -->
     <section id="when-studied" class="section when-studied-section">
-      <div class="image-content-top">
+      <!-- <div class="image-content-top">
         <img 
           :src="platonicImage" 
           :alt="t.alt.platonic"
           class="platonic-image"
         />
-      </div>
+      </div> -->
       <div class="section-content">
         <div class="text-content">
           <h2 class="section-title scroll-reveal">{{ t.whenStudied.title }}</h2>
@@ -340,9 +340,10 @@
               </ul>
             </div>
           </div>
+          <p class="comparison-conclusion scroll-reveal">{{ t.masterVsBootcamp.conclusion }}</p>
         </div>
       </div>
-      <button 
+      <button
         v-if="hasNextSection('master-vs-bootcamp')"
         class="scroll-arrow-btn" 
         @click="scrollToNextSection"
@@ -500,14 +501,19 @@
             <div
               v-for="(msg, index) in chatMessages"
               :key="index"
-              :class="['chat-bubble', msg.type, { 'chat-visible': visibleMessages > index }]"
+              :class="['chat-bubble', msg.type, {
+                'chat-visible': visibleMessages > index,
+                'chat-typing': chatTyping && visibleMessages === index
+              }]"
             >
               <p class="chat-text">{{ msg.text }}</p>
-            </div>
-            <div v-if="chatTyping" class="chat-bubble question typing-indicator">
-              <span class="typing-dot"></span>
-              <span class="typing-dot"></span>
-              <span class="typing-dot"></span>
+              <Transition name="dots-fade">
+                <span v-if="chatTyping && visibleMessages === index" class="typing-dots">
+                  <span class="typing-dot"></span>
+                  <span class="typing-dot"></span>
+                  <span class="typing-dot"></span>
+                </span>
+              </Transition>
             </div>
           </div>
         </div>
@@ -526,13 +532,13 @@
           />
         </a>
       </Transition>
-      <div class="image-content resizes-tube-image">
+      <!-- <div class="image-content resizes-tube-image">
         <img
           :src="tubeImage"
           :alt="t.alt.character"
           class="character-image"
         />
-      </div>
+      </div> -->
       <div class="resizes-bottom-tagline">
         <p class="resizes-tagline-text">{{ t.resizes.description }}</p>
       </div>
@@ -580,6 +586,7 @@
                 <text
                   :x="cat.labelX" :y="cat.labelY"
                   text-anchor="middle"
+                  dominant-baseline="central"
                   class="ring-cat-label"
                   :class="{ active: radialHovered === cat.catIndex, dimmed: radialHovered !== null && radialHovered !== cat.catIndex }"
                 >{{ cat.name }}</text>
@@ -694,7 +701,7 @@
               {{ t.closing.linkedin }}
             </a>
             <a
-              href="mailto:alberto@resiz.es"
+              href="mailto:albegosu@gmail.com"
               class="closing-link"
             >
               <span class="closing-link-icon">
@@ -708,14 +715,14 @@
       <div class="closing-footer">
         <span class="closing-name">Alberto González</span>
         <span class="closing-separator">/</span>
-        <span class="closing-role">{{ t.whoIAm.profileTitle }}</span>
+        <span class="closing-role">Product Engineer</span>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
+import { ref, onMounted, onUnmounted, watch, computed, nextTick } from 'vue'
 import characterImage from '../assets/Gon_5_Standing_Outline0003.png'
 import profileImage from '../assets/Alberto González 1.png'
 import resizesLogo from '../assets/Resizes.png'
@@ -739,7 +746,7 @@ const translations = {
     whoIAm: {
       title: 'Who I am',
       subtitle: 'From Industrial Design to Web Development',
-      profileTitle: 'Full Stack Engineer',
+      profileTitle: 'Product Engineer',
       profileHover: {
         industrialDesign: 'Industrial Design',
         masterFullStack: 'Master Full Stack',
@@ -765,7 +772,7 @@ const translations = {
       }
     },
     whenStudied: {
-      title: 'When I Studied the UNIR Master',
+      title: 'My Time at the UNIR Master',
       subtitle: 'Key points of my experience',
       faculty: 'Expert Faculty',
       content: 'Educational Content',
@@ -793,9 +800,10 @@ const translations = {
         },
         github: {
           title: 'Greater GitHub Usage',
-          text: 'You\'ll use GitHub much more frequently for version control, managing projects, and showcasing your work—great practice with tools you\'ll actually use on the job.'
+          text: 'GitHub is used much more intensively for version control, managing projects, and showcasing your work—great practice with the tools you\'ll actually use on the job.'
         }
-      }
+      },
+      conclusion: 'For me they don\'t compete: the master gave me the foundation, and the bootcamp the muscle of working as a team.'
     },
     firstJob: {
       title: 'My First Job',
@@ -834,6 +842,7 @@ const translations = {
       subtitle: 'What I actually use every day',
       frontend: 'Frontend',
       backend: 'Backend',
+      platform: 'Platform',
       tools: 'Tools',
       ai: 'AI & Productivity'
     },
@@ -843,20 +852,19 @@ const translations = {
       items: [
         { time: '9:00', title: 'Stand-up & Planning', desc: 'Quick sync with the team: what we did, what we\'ll do, and blockers.' },
         { time: '10:00', title: 'Build & Code', desc: 'Deep work time. Frontend features, API endpoints, database queries — the core of the day.' },
-        { time: '13:00', title: 'Code Review', desc: 'Reviewing PRs, discussing approaches, learning from teammates\' code.' },
-        { time: '14:00', title: 'Lunch & Learning', desc: 'Recharge and explore — articles, videos, side experiments.' },
-        { time: '15:30', title: 'Testing & Debugging', desc: 'Write tests, fix bugs, and ensure everything works before shipping.' },
-        { time: '17:00', title: 'Deploy & Docs', desc: 'Ship to production, update documentation, and plan tomorrow.' }
+        { time: '13:00', title: 'Client Meetings', desc: 'Demos, gathering requirements, and understanding what the client really needs.' },
+        { time: '15:00', title: 'Internal Meetings', desc: 'Team syncs, 1:1s, product weeklys, and development syncs.' },
+        { time: '17:00', title: 'Code Review & Wrap-up', desc: 'Reviewing the team\'s PRs, merging, and leaving everything ready for tomorrow.' }
       ]
     },
     resizes: {
-      subtitle: 'My place',
-      description: 'A tech company building tools that help developers and teams work smarter.',
+      subtitle: 'Where I work now',
+      description: 'A platform engineering company: tools and infrastructure so teams can ship without friction.',
       chat: [
         { type: 'question', text: 'What do you do at Resizes?' },
-        { type: 'answer', text: 'I build Dash — a platform that helps dev teams streamline their workflows. I work across the full stack, from Vue 3 frontends to Node.js APIs.' },
-        { type: 'question', text: 'How\'s the team?' },
-        { type: 'answer', text: 'Small, focused, and very autonomous. We move fast, ship often, and everyone has real ownership over what they build.' },
+        { type: 'answer', text: 'A bit of everything across the stack. Lately I\'ve been building an e-commerce platform for a client and Agentic AI, our infrastructure product.' },
+        { type: 'question', text: 'What\'s Agentic AI?' },
+        { type: 'answer', text: 'A conversational chat to control your infrastructure — you deploy, scale and monitor services just by talking to an agent.' },
         { type: 'question', text: 'What tech do you use?' },
         { type: 'answer', text: 'Vue 3 + Nuxt on the frontend, Node.js + PostgreSQL on the backend. We use Claude and Cursor daily — AI is part of the workflow, not a gimmick.' }
       ]
@@ -865,10 +873,10 @@ const translations = {
       masterclass: 'Masterclass',
       whoIAm: 'Who I am',
       whereWorked: 'Where I\'ve worked',
-      whyStudied: 'Why?',
-      whenStudied: 'When I studied',
+      whyStudied: 'Why UNIR',
+      whenStudied: 'My time at UNIR',
       masterVsBootcamp: 'Master vs. Bootcamp',
-      firstJob: 'New Job',
+      firstJob: 'First Job',
       softSkills: 'Soft Skills',
       myStack: 'My Stack',
       myDay: 'My Day',
@@ -900,7 +908,7 @@ const translations = {
     whoIAm: {
       title: 'Quién soy',
       subtitle: 'Del Diseño Industrial al Desarrollo Web',
-      profileTitle: 'Ingeniero Full Stack',
+      profileTitle: 'Product Engineer',
       profileHover: {
         industrialDesign: 'Diseño Industrial',
         masterFullStack: 'Máster Full Stack',
@@ -926,7 +934,7 @@ const translations = {
       }
     },
     whenStudied: {
-      title: 'Cuándo estudié el Máster de UNIR',
+      title: 'Mi paso por el Máster de UNIR',
       subtitle: 'Los puntos más importantes para mí',
       faculty: 'Profesorado experto',
       content: 'Contenido educativo',
@@ -954,9 +962,10 @@ const translations = {
         },
         github: {
           title: 'Mayor uso de GitHub',
-          text: 'Usarás GitHub con mucha más frecuencia para control de versiones, gestión de proyectos y mostrar tu trabajo: una excelente práctica con herramientas que realmente usarás en el trabajo.'
+          text: 'GitHub se usa de forma mucho más intensiva para control de versiones, gestión de proyectos y mostrar tu trabajo: una excelente práctica con las herramientas que realmente usarás en el día a día.'
         }
-      }
+      },
+      conclusion: 'Para mí no compiten: el máster me dio la base y el bootcamp, el músculo de trabajar en equipo.'
     },
     firstJob: {
       title: 'Mi primer trabajo',
@@ -995,6 +1004,7 @@ const translations = {
       subtitle: 'Lo que uso de verdad cada día',
       frontend: 'Frontend',
       backend: 'Backend',
+      platform: 'Plataforma',
       tools: 'Herramientas',
       ai: 'IA y Productividad'
     },
@@ -1003,21 +1013,20 @@ const translations = {
       subtitle: 'Cómo es un día típico de trabajo',
       items: [
         { time: '9:00', title: 'Stand-up y Planificación', desc: 'Sincronización rápida con el equipo: qué hicimos, qué haremos y bloqueos.' },
-        { time: '10:00', title: 'Construir y Programar', desc: 'Tiempo de trabajo profundo. Features de frontend, endpoints de API, consultas a base de datos — el núcleo del día.' },
-        { time: '13:00', title: 'Code Review', desc: 'Revisando PRs, discutiendo enfoques, aprendiendo del código de los compañeros.' },
-        { time: '14:00', title: 'Comida y Aprendizaje', desc: 'Recargar y explorar — artículos, vídeos, experimentos propios.' },
-        { time: '15:30', title: 'Testing y Debugging', desc: 'Escribir tests, arreglar bugs y asegurar que todo funciona antes de desplegar.' },
-        { time: '17:00', title: 'Deploy y Documentación', desc: 'Desplegar a producción, actualizar documentación y planificar el día siguiente.' }
+        { time: '10:00', title: 'Desarrollo', desc: 'Tiempo de trabajo profundo. Features de frontend, endpoints de API, consultas a base de datos — el núcleo del día.' },
+        { time: '13:00', title: 'Reuniones con Clientes', desc: 'Demos, recogida de requisitos y entender qué necesita realmente el cliente.' },
+        { time: '15:00', title: 'Reuniones Internas', desc: 'Syncs de equipo, 1:1s, weeklys de producto y sync de desarrollo.' },
+        { time: '17:00', title: 'Code review y cierre', desc: 'Revisar las PRs del equipo, mergear y dejar todo listo para mañana.' }
       ]
     },
     resizes: {
-      subtitle: 'Mi lugar',
-      description: 'Una empresa tech que construye herramientas para que desarrolladores y equipos trabajen mejor.',
+      subtitle: 'Donde trabajo ahora',
+      description: 'Una empresa de platform engineering: herramientas e infraestructura para que los equipos desplieguen sin fricción.',
       chat: [
         { type: 'question', text: '¿Qué haces en Resizes?' },
-        { type: 'answer', text: 'Construyo Dash — una plataforma que ayuda a equipos de desarrollo a optimizar sus flujos de trabajo. Trabajo en todo el stack, desde frontends con Vue 3 hasta APIs con Node.js.' },
-        { type: 'question', text: '¿Cómo es el equipo?' },
-        { type: 'answer', text: 'Pequeño, enfocado y muy autónomo. Nos movemos rápido, desplegamos a menudo y cada uno tiene responsabilidad real sobre lo que construye.' },
+        { type: 'answer', text: 'Un poco de todo el stack. Últimamente construyo el e-commerce de un cliente y Agentic AI, nuestro producto de infraestructura.' },
+        { type: 'question', text: '¿Y qué es Agentic AI?' },
+        { type: 'answer', text: 'Un chat conversacional para controlar tu infraestructura — despliegas, escalas y monitorizas servicios simplemente hablando con un agente.' },
         { type: 'question', text: '¿Qué tecnología usáis?' },
         { type: 'answer', text: 'Vue 3 + Nuxt en el frontend, Node.js + PostgreSQL en el backend. Usamos Claude y Cursor a diario — la IA es parte del flujo de trabajo, no un adorno.' }
       ]
@@ -1026,10 +1035,10 @@ const translations = {
       masterclass: 'Masterclass',
       whoIAm: 'Quién soy',
       whereWorked: 'Dónde he trabajado',
-      whyStudied: '¿Por qué?',
-      whenStudied: 'Cuándo estudié',
+      whyStudied: 'Por qué UNIR',
+      whenStudied: 'Mi paso por UNIR',
       masterVsBootcamp: 'Máster vs. Bootcamp',
-      firstJob: 'Nuevo trabajo',
+      firstJob: 'Primer trabajo',
       softSkills: 'Habilidades blandas',
       myStack: 'Mi Stack',
       myDay: 'Mi día',
@@ -1096,16 +1105,22 @@ const workExperience = computed(() => [
     year: '2022 - 2023'
   },
   {
+    position: currentLanguage.value === 'en' ? 'Master in Full Stack Development' : 'Máster en Desarrollo Full Stack',
+    company: 'UNIR',
+    location: 'Online',
+    year: '2023 - 2024'
+  },
+  {
     position: currentLanguage.value === 'en' ? 'Consultant and Analyst' : 'Consultor y Analista',
     company: 'Minsait',
     location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
     year: '2024 - 2025'
   },
   {
-    position: currentLanguage.value === 'en' ? 'Full Stack Engineer' : 'Ingeniero Full Stack',
+    position: currentLanguage.value === 'en' ? 'Full Stack Engineer' : 'Full Stack Engineer',
     company: 'Resizes',
     location: currentLanguage.value === 'en' ? 'Gijón, Asturias, Spain' : 'Gijón, Asturias, España',
-    year: '2025'
+    year: '2025 - 2026'
   },
   {
     position: currentLanguage.value === 'en' ? 'Product Engineer' : 'Product Engineer',
@@ -1227,10 +1242,11 @@ const radialData = computed(() => {
   const cx = 350, cy = 350
   const R = 250
   const categories = [
-    { name: t.value.myStack.ai, items: ['Claude', 'Copilot', 'Claude Code', 'Cursor'] },
+    { name: t.value.myStack.ai, items: ['Claude', 'Ollama', 'Cursor'] },
     { name: t.value.myStack.frontend, items: ['Vue 3', 'Nuxt', 'React', 'Vite', 'Tailwind'] },
-    { name: t.value.myStack.backend, items: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'TypeScript'] },
-    { name: t.value.myStack.tools, items: ['Git', 'GitHub Actions', 'Docker', 'VS Code'] }
+    { name: t.value.myStack.backend, items: ['TypeScript', 'Express', 'Node.js', 'Python', 'PostgreSQL'] },
+    { name: t.value.myStack.platform, items: ['ArgoCD', 'Atlantis', 'Terraform', 'K8s'] },
+    { name: t.value.myStack.tools, items: ['Git', 'GitHub Actions', 'Docker', 'Warp'] }
   ]
 
   const toXY = (angleDeg, radius) => {
@@ -1264,34 +1280,80 @@ const radialData = computed(() => {
     const arcR = R - 26
     const a1 = toXY(arcStart + 2, arcR)
     const a2 = toXY(arcEnd - 2, arcR)
-    const labelPos = toXY(midDeg, R - 66)
+    // Horizontal label anchored by its outer edge so it never crosses the arc
+    const labelW = cat.name.length * 9.5
+    const midRad = (midDeg * Math.PI) / 180
+    const labelPos = toXY(midDeg, R - 56)
     cats.push({
       name: cat.name,
       catIndex: ci,
       arcPath: `M ${a1.x} ${a1.y} A ${arcR} ${arcR} 0 0 1 ${a2.x} ${a2.y}`,
-      labelX: labelPos.x,
-      labelY: labelPos.y
+      labelX: labelPos.x - (labelW / 2) * Math.cos(midRad),
+      labelY: labelPos.y - 8 * Math.sin(midRad)
     })
 
     cat.items.forEach((name, ii) => {
       const deg = arcStart + slotDeg * (ii + 0.5)
-      const idx = nodes.length
       const p1 = toXY(deg, R - 4)
       const p2 = toXY(deg, R + 20)
-      const cardPos = toXY(deg, R + 62 + (idx % 2) * 32)
+      const cardW = Math.max(name.length * 7.5 + 24, 60)
+      const cardH = 30
+      const rad = (deg * Math.PI) / 180
+      const cos = Math.cos(rad)
+      const sin = Math.sin(rad)
+      // Distance from the card centre to its own border along the ray:
+      // placing the centre this far past the ring puts the card's inner
+      // edge on the same circle for every angle, so the ring reads clean
+      const edgeDist = Math.min(
+        cardW / 2 / Math.max(Math.abs(cos), 1e-6),
+        cardH / 2 / Math.max(Math.abs(sin), 1e-6)
+      )
+      const dist = R + 32 + edgeDist
       nodes.push({
         name,
         catIndex: ci,
         x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y,
-        cardX: cardPos.x, cardY: cardPos.y,
-        cardW: Math.max(name.length * 8 + 26, 64),
-        cardH: 32,
-        tilt: ((idx * 47) % 13) - 6
+        cos, sin, dist,
+        cardX: cx + dist * cos,
+        cardY: cy + dist * sin,
+        cardW,
+        cardH,
+        tilt: 0
       })
     })
 
     cursor = arcEnd + gapDeg
   })
+
+  // Near 12 and 6 o'clock the ring tangent is horizontal and wide cards can
+  // collide; push overlapping cards outward so crowded zones stagger cleanly
+  const pushOut = (node) => {
+    node.dist += 6
+    node.cardX = cx + node.dist * node.cos
+    node.cardY = cy + node.dist * node.sin
+  }
+  // On diagonals a wide card's corner can dip inside the tick crown even
+  // though its edge along the ray does not; keep every corner clear of it
+  const minDistToCenter = (node) => {
+    const nx = Math.max(node.cardX - node.cardW / 2, Math.min(cx, node.cardX + node.cardW / 2))
+    const ny = Math.max(node.cardY - node.cardH / 2, Math.min(cy, node.cardY + node.cardH / 2))
+    return Math.hypot(nx - cx, ny - cy)
+  }
+  nodes.forEach(node => {
+    let guard = 0
+    while (minDistToCenter(node) < R + 26 && guard++ < 40) pushOut(node)
+  })
+  const overlaps = (a, b) =>
+    Math.abs(a.cardX - b.cardX) * 2 < a.cardW + b.cardW + 10 &&
+    Math.abs(a.cardY - b.cardY) * 2 < a.cardH + b.cardH + 10
+  for (let i = 1; i < nodes.length; i++) {
+    let guard = 0
+    while (overlaps(nodes[i], nodes[i - 1]) && guard++ < 40) pushOut(nodes[i])
+  }
+  let wrapGuard = 0
+  while (nodes.length > 1 && overlaps(nodes[0], nodes[nodes.length - 1]) && wrapGuard++ < 40) {
+    pushOut(nodes[nodes.length - 1])
+  }
 
   return { ticks, nodes, cats }
 })
@@ -1333,15 +1395,44 @@ const startChatSequence = () => {
   chatTimeouts = []
 
   const msgs = chatMessages.value
+  if (prefersReducedMotion) {
+    visibleMessages.value = msgs.length
+    return
+  }
+
+  let elapsed = 400
   msgs.forEach((msg, index) => {
-    const typingDelay = index * 1800
-    chatTimeouts.push(setTimeout(() => { chatTyping.value = true }, typingDelay))
+    const typingTime = Math.min(600 + msg.text.length * 8, 1600)
+    const readingTime = Math.min(500 + msg.text.length * 14, 2400)
+    chatTimeouts.push(setTimeout(() => { chatTyping.value = true }, elapsed))
     chatTimeouts.push(setTimeout(() => {
       chatTyping.value = false
       visibleMessages.value = index + 1
-    }, typingDelay + 800))
+    }, elapsed + typingTime))
+    elapsed += typingTime + readingTime
   })
 }
+
+// Keep the newest bubble in view when the chat overflows its max-height
+watch([visibleMessages, chatTyping], async () => {
+  await nextTick()
+  const el = chatContainer.value
+  if (!el) return
+  const maxScroll = el.scrollHeight - el.clientHeight
+  if (maxScroll <= 0) return
+  const bubbles = el.querySelectorAll('.chat-bubble')
+  const idx = Math.min(visibleMessages.value + (chatTyping.value ? 1 : 0), bubbles.length) - 1
+  const target = bubbles[idx]
+  if (!target) return
+  const bottom = target.offsetTop + target.offsetHeight
+  // Scroll just enough to reveal the bubble, never past the real content,
+  // and skip corrections too small to matter (avoids a pointless drop at
+  // the end when the chat overflows by only a few pixels)
+  const top = Math.min(bottom - el.clientHeight, maxScroll)
+  if (top - el.scrollTop > 12) {
+    el.scrollTo({ top, behavior: 'smooth' })
+  }
+})
 
 // ── Generative canvas (Simplex noise particle mesh) ──
 // Fixed to the viewport so the mesh lives behind every section; scroll
@@ -2228,6 +2319,15 @@ onUnmounted(() => {
   line-height: 1.8;
   color: #333;
   margin: 0;
+}
+
+.comparison-conclusion {
+  margin-top: 3rem;
+  max-width: 1200px;
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #1a1a2e;
 }
 
 /* Where I've worked Section Layout */
@@ -4042,15 +4142,15 @@ onUnmounted(() => {
 
 /* Radial Hero */
 #my-stack .text-content {
-  max-width: 900px;
+  max-width: 100%;
   width: 100%;
 }
 
 .radial-hero-wrapper {
   width: 100%;
-  max-width: 900px;
+  max-width: 1150px;
   margin: 0 auto;
-  max-height: 60vh;
+  max-height: 78vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4059,7 +4159,7 @@ onUnmounted(() => {
 .radial-hero {
   width: 100%;
   height: auto;
-  max-height: 60vh;
+  max-height: 78vh;
 }
 
 .ring-tick {
@@ -4074,11 +4174,10 @@ onUnmounted(() => {
   stroke-width: 1.5;
   fill: none;
   stroke-linecap: round;
-  transition: stroke 0.3s ease, stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+  transition: stroke-opacity 0.3s ease, stroke-width 0.3s ease;
 }
 
 .ring-cat-arc.active {
-  stroke: #e8590c;
   stroke-opacity: 0.9;
   stroke-width: 2.5;
 }
@@ -4095,11 +4194,10 @@ onUnmounted(() => {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
-  transition: fill 0.3s ease, fill-opacity 0.3s ease;
+  transition: fill-opacity 0.3s ease;
 }
 
 .ring-cat-label.active {
-  fill: #e8590c;
   fill-opacity: 1;
 }
 
@@ -4116,26 +4214,30 @@ onUnmounted(() => {
 }
 
 .ring-item-tick {
-  stroke: #e8590c;
+  stroke: #1a1a2e;
+  stroke-opacity: 0.85;
   stroke-width: 7;
   stroke-linecap: round;
-  transition: stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: stroke-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), stroke-opacity 0.3s ease;
 }
 
 .ring-item-tick.active {
   stroke-width: 10;
+  stroke-opacity: 1;
 }
 
 .ring-card {
-  fill: #fdfaf5;
-  stroke: #e8590c;
+  fill: #f5f5f5;
+  stroke: #1a1a2e;
+  stroke-opacity: 0.4;
   stroke-width: 1.25;
-  transition: fill 0.3s ease, stroke-width 0.3s ease;
+  transition: fill 0.3s ease, stroke-width 0.3s ease, stroke-opacity 0.3s ease;
 }
 
 .ring-card.active {
-  fill: #fdf0e6;
-  stroke-width: 2;
+  fill: #ffffff;
+  stroke-opacity: 0.85;
+  stroke-width: 1.75;
 }
 
 .ring-card-text {
@@ -4169,6 +4271,7 @@ onUnmounted(() => {
 }
 
 .chat-bubble {
+  position: relative;
   max-width: 82%;
   padding: 0.8rem 1.1rem;
   border-radius: 16px;
@@ -4176,10 +4279,11 @@ onUnmounted(() => {
   line-height: 1.55;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.chat-bubble.chat-visible {
+.chat-bubble.chat-visible,
+.chat-bubble.chat-typing {
   opacity: 1;
   transform: translateY(0);
 }
@@ -4201,15 +4305,33 @@ onUnmounted(() => {
 
 .chat-text {
   margin: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease 0.1s;
 }
 
-.typing-indicator {
+.chat-bubble.chat-visible .chat-text {
+  opacity: 1;
+}
+
+/* Dots overlay the (still invisible) text, so the bubble keeps its final
+   size and nothing shifts when the message fades in */
+.typing-dots {
+  position: absolute;
+  inset: 0;
+  padding: inherit;
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 0.8rem 1.1rem;
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+}
+
+.dots-fade-enter-active,
+.dots-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.dots-fade-enter-from,
+.dots-fade-leave-to {
+  opacity: 0;
 }
 
 .typing-dot {
@@ -4287,7 +4409,7 @@ onUnmounted(() => {
   max-width: 520px;
   width: 100%;
   margin-top: 0;
-  max-height: 65vh;
+  max-height: 70vh;
   overflow-y: auto;
 }
 
